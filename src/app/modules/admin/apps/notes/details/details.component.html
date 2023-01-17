@@ -1,0 +1,97 @@
+<div class="flex flex-col flex-auto md:w-160 md:min-w-160 -m-6">
+    <ng-container>
+        <form
+            class="p-4 bg-card shadow rounded overflow-hidden"
+            [formGroup]="horizontalStepperForm">
+            <mat-horizontal-stepper
+                [linear]="true"
+                #horizontalStepper>
+                <mat-step
+                    [formGroupName]="'step1'"
+                    [stepControl]="horizontalStepperForm.get('step1')"
+                    #horizontalStepperStep1>
+                    <ng-template matStepLabel>Saisie des Informations</ng-template>
+                    <p class="my-6 font-medium">
+                        Veuillez Renseigner les informations suivantes :
+                    </p>
+                    <div class="flex">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Nom de la Categorie: </mat-label>
+                            <input
+                                matInput
+                                [formControlName]="'name'"
+                                [placeholder]="'Nom'"
+                                required>
+                            <mat-icon
+                                class="icon-size-5"
+                                matPrefix
+                                [svgIcon]="'heroicons_solid:document-text'"></mat-icon>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <mat-form-field class="flex-auto">
+                            <mat-label>Description (Optionnel): </mat-label>
+                            <textarea
+                                matInput
+                                [formControlName]="'description'"
+                                [placeholder]="'Description'"
+                            > </textarea>
+                        </mat-form-field>
+                    </div>
+                    <div class="flex justify-end">
+                        <button
+                            class="px-8 mr-2"
+                            mat-flat-button
+                            [color]="'warn'"
+                            [disabled]="!updating"
+                            type="button"
+                            (click)="deleteCategory()">
+                            Supprimer
+                        </button>
+                        <button
+                            class="px-8"
+                            mat-flat-button
+                            [color]="'primary'"
+                            [disabled]="horizontalStepperStep1.stepControl.pristine || horizontalStepperStep1.stepControl.invalid"
+                            type="button"
+                            matStepperNext>
+                            Suivant
+                        </button>
+                    </div>
+                </mat-step>
+
+                <mat-step>
+                    <ng-template matStepLabel>Confirmation</ng-template>
+                    <p class="my-6 font-medium">
+                        Veuillez Cofnirmer les Informations saisies :
+                    </p>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <label>Nom : </label> <br> <strong>{{horizontalStepperForm.value.step1.name}}</strong> <br>
+                    </div>
+                    <div class="flex flex-col gt-xs:flex-row">
+                        <label>Description : </label> <br> <strong>{{horizontalStepperForm.value.step1.description}}</strong>
+                    </div>
+                    <div class="flex justify-end mt-8">
+                        <button
+                            class="px-8 mr-2"
+                            mat-flat-button
+                            [color]="'accent'"
+                            type="button"
+                            matStepperPrevious>
+                            Back
+                        </button>
+                        <button
+                            class="px-8"
+                            mat-flat-button
+                            [color]="'primary'"
+                            type="button"
+                            (click)="onSubmit()">
+                            Enregistrer
+                        </button>
+                    </div>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </form>
+
+    </ng-container>
+</div>

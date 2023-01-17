@@ -1,0 +1,98 @@
+<div *ngIf="dataObtained"
+    class="absolute inset-0 min-w-0 text-center"
+    cdkScrollable>
+
+    <!-- Main -->
+    <div class="inline-block p-6 sm:p-10 text-left print:p-0">
+
+        <!-- Invoice -->
+        <div class="w-240 min-w-240 p-16 rounded-2xl shadow bg-card print:w-auto print:p-0 print:rounded-none print:shadow-none print:bg-transparent">
+
+            <div class="flex items-start">
+                <div class="grid grid-rows-2 place-items-start gap-y-12">
+                    <div class="grid auto-cols-max grid-flow-col gap-x-8">
+                        <div class="place-self-center w-24">
+                            <img
+                                class="w-24"
+                                [src]="organizerImage">
+                        </div>
+                        <div class="pl-10 border-l text-md">
+                            <div class="font-medium">{{event.organizer.account.fullName}}.</div>
+                            <div>{{event.organizer.account.email}}</div>
+                            <div *ngIf="event.organizer.account.phone">{{event.organizer.account.phone}}</div>
+                            <div *ngIf="event.organizer.account.address">{{event.organizer.account.address}}</div>
+                        </div>
+                    </div>
+                    <div class="grid auto-cols-max grid-flow-col gap-x-8">
+                        <div class="place-self-center w-24 text-center text-2xl text-secondary">
+                            Detail
+                        </div>
+                        <div class="pl-10 border-l text-md">
+                            <div class="font-medium">{{event.title}}</div>
+                            <div>{{event.completeEventTime.split(',')[0]}}</div>
+                            <div>{{event.completeEventTime.split(',')[1]}}</div>
+                            <div>{{event.completeEventTime.split(',')[2]}}</div>
+                            <div>Nombre de Billets/Tickets disponibles : {{event.totalTicketAvailable}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="justify-self-end ml-50">
+                    <img style="height: 300px ; width: 350px"
+                         [src]="eventImage">
+                </div>
+
+            </div>
+
+            <div class="mt-16">
+                <div class="font-medium">Supprimer un Evénement ?</div>
+                <div class="flex items-start mt-4">
+                    <img
+                        class="flex-0 w-10 mt-2"
+                        src="assets/logo.jpeg">
+                    <div class="ml-6 text-sm text-secondary">
+                        Attention, Cette Action est Irreversible !
+                    </div>
+                </div>
+            </div>
+
+            <div
+                class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                <button (click)="router.navigateByUrl('apps/event-list')" mat-button>
+                    Annuler
+                </button>
+                <button
+                    class="px-6 ml-3"
+                    mat-flat-button
+                    [color]="'warn'"
+                    (click)="onSubmit()">
+                    Supprimer
+                </button>
+            </div>
+
+            <div class="pt-8">
+                <fuse-alert
+                    [appearance]="'soft'"
+                    [dismissible]="true"
+                    [dismissed]="true"
+                    [name]="'error_on_save'"
+                    [type]="'error'">
+                    Erreur lors de la Suppression, Verifiez qu'aucun Ticket n'a été resérvé ou si l'évenement est definis comme Vedette !
+                </fuse-alert>
+            </div>
+
+            <div class="pt-8">
+                <fuse-alert
+                    [appearance]="'soft'"
+                    [dismissible]="true"
+                    [dismissed]="true"
+                    [name]="'success_on_save'"
+                    [type]="'success'">
+                    Suppression Effectuée avec Success !, Redirection...
+                </fuse-alert>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

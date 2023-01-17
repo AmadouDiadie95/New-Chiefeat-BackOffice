@@ -1,0 +1,53 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+    <form>
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Changer l'arrière-plan de <a style="color: goldenrod" target="_blank" href="https://n-ticket.com">n-ticket.com </a> </div>
+            <div class="text-secondary">Pour Changer veuillez Selctionnez une image</div>
+        </div>
+        <div class="grid sm:grid-cols-3 gap-6 w-full mt-8">
+            <div class="sm:col-span-3">
+                <fuse-alert
+                    [appearance]="'outline'"
+                    [type]="'info'">
+                    Le Changement prendra effet immediatement sur n-ticket.com après avoir Sauvegarder.
+                </fuse-alert>
+            </div>
+            <div
+                class="relative flex flex-col items-start justify-start rounded-md shadow cursor-pointer bg-card">
+                <img src="{{srcImage}}">
+
+            </div>
+            <div class="flex">
+                <input class="form-control" type="file" id="formFile"
+                       [multiple]="false"
+                       [accept]="'image/jpeg, image/png'"
+                       (change)="uploadImage(imageFileInput.files)"
+                       #imageFileInput>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                type="button">
+                Annuler
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                (click)="testBeforeSave()"
+                type="button"
+                [color]="'primary'">Enregister
+            </button>
+        </div>
+    </form>
+
+</div>

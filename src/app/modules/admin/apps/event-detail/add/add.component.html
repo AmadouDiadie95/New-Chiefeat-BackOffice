@@ -1,0 +1,383 @@
+<div
+    class="absolute inset-0 min-w-0 text-center"
+    cdkScrollable>
+
+    <!-- Main -->
+    <div class="inline-block p-6 sm:p-10 text-left print:p-0">
+
+        <!-- Invoice -->
+        <div class="w-240 min-w-240 p-16 rounded-2xl shadow bg-card print:w-auto print:p-0 print:rounded-none print:shadow-none print:bg-transparent">
+
+            <form [formGroup]="formGroup">
+
+                <div class="flex items-start">
+                    <div class="grid place-items-start ml-10 min-w-100 ">
+                        <div class="grid auto-cols-max grid-flow-col">
+                            <div class="flex min-w-80">
+                                <mat-form-field class="flex-auto">
+                                    <mat-label>Titre :</mat-label>
+                                    <input
+                                        matInput
+                                        formControlName = "title"
+                                        placeholder="Titre de l'Evenement">
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        matPrefix
+                                        [svgIcon]="'heroicons_solid:sparkles'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="grid auto-cols-max grid-flow-col gap-x-8">
+                            <div class="flex min-w-80">
+                                <mat-form-field class="fuse-mat-textarea flex-auto">
+                                    <mat-label>Description :</mat-label>
+                                    <textarea
+                                        matInput
+                                        formControlName = "description"
+                                        placeholder="Description de l'Evenement"
+                                        [rows]="9"></textarea>
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        matPrefix
+                                        [svgIcon]="'heroicons_solid:menu-alt-2'"></mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="justify-self-end">
+                        <img style="height: 300px ; width: 350px ; border: 1px solid black ; cursor:pointer;"
+                             [src]="image" (click)="selectImage.click()"/>
+                        <input type="file" style=" display: none"
+                               [multiple]="false"
+                               [accept]="'image/jpeg, image/png'"
+                               (change)="uploadImage(selectImage.files)"
+                               #selectImage>
+                    </div>
+
+                </div>
+
+                <div>
+                    <div class="flex flex-col mt-4 px-8 pt-5">
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-start">
+                            <div class="gt-xs:max-w-80 gt-xs:pr-12">
+                                <p class="text-lg font-medium">Detail de l'Evénement</p>
+                                <p class="text-secondary mb-6">
+                                    Veuillez Renseignez les champs ci-dessous :
+                                </p>
+                            </div>
+                            <div class="flex-auto min-w-64">
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <mat-label>Categorie</mat-label>
+                                        <mat-select formControlName = "category">
+                                            <mat-option *ngFor="let category of allCategories"
+                                                        [value]="category">{{category.name}}</mat-option>
+                                        </mat-select>
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:collection'"></mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <mat-label>Organisateur</mat-label>
+                                        <mat-select formControlName = "organizer">
+                                            <mat-option *ngFor="let organizer of allOrganizers"
+                                                        [value]="organizer" >{{organizer.account.fullName}}</mat-option>
+                                        </mat-select>
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+
+                        <mat-divider class="mt-4 mb-12"></mat-divider>
+
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-start">
+                            <div class="gt-xs:max-w-80 gt-xs:pr-12">
+                                <p class="text-lg font-medium">Detail du Billet/Ticket d'Evénement</p>
+                                <p class="text-secondary mb-6">
+                                    Veuillez Renseignez les champs ci-dessous :
+                                </p>
+                            </div>
+                            <div class="flex-auto min-w-64">
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <mat-label>Date prévue :</mat-label>
+                                        <input matInput [min]="minDate" [matDatepicker]="picker"
+                                               formControlName = "date"
+                                               placeholder="Choisir une date ->">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto mr-5">
+                                        <mat-label>Heure de Debut :</mat-label>
+                                        <input matInput formControlName = "startHourString" type="time">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:clock'"></mat-icon>
+                                    </mat-form-field>
+                                    <mat-form-field class="flex-auto ml-auto">
+                                        <mat-label>Heure de Fin (Non Obligatoire) :</mat-label>
+                                        <input matInput formControlName = "endHourString" type="time">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:clock'"></mat-icon>
+                                    </mat-form-field>
+                                </div>
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <mat-label>Lieu</mat-label>
+                                        <input
+                                            matInput
+                                            formControlName = "place"
+                                            [placeholder]="'Lieu'">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
+                                    </mat-form-field>
+                                </div>
+                               <!-- <div class="mb-5">
+                                    <mat-label>Billets Disponibles :
+                                        <button class="text-primary" (click)="addNewTicket()"
+                                                mat-icon-button style="margin-bottom: -10px"
+                                                [color]="'primary'">
+                                            <mat-icon [svgIcon]="'heroicons_outline:plus-circle'"></mat-icon>
+                                        </button>
+                                    </mat-label>
+                                </div>
+                                <div *ngFor="let ticketPriceName of event.listTicketPrice ; let i = index" class="flex">
+                                    <mat-form-field class="flex-auto mr-5">
+                                                <input type="text" [(ngModel)]="event.listTicketPrice[i]" [ngModelOptions]="{standalone: true}"
+                                                       matInput
+                                                       [placeholder]="'Veuillez Saisir le Nom du Ticket/Billet'">
+                                                <mat-icon
+                                                    class="icon-size-5"
+                                                    matPrefix
+                                                    [svgIcon]="'heroicons_solid:document-text'"></mat-icon>
+                                    </mat-form-field>
+                                    <mat-form-field class="flex-auto">
+                                                <input type="number" min="0"
+                                                       [(ngModel)]="mapTicketNamePrice[ticketPriceName]" [ngModelOptions]="{standalone: true}"
+                                                                    matInput
+                                                                    [placeholder]="'Prix'">
+                                                <mat-icon
+                                                    class="icon-size-5"
+                                                    matPrefix
+                                                    [svgIcon]="'heroicons_solid:currency-dollar'"></mat-icon>
+                                    </mat-form-field>
+                                    <button (click)="removeTicket(i)" class="text-primary"
+                                        mat-icon-button
+                                        [color]="'primary'">
+                                        <mat-icon [svgIcon]="'heroicons_outline:minus-circle'"></mat-icon>
+                                    </button>
+                                </div>-->
+                                <!-- Emails -->
+                                <div class="mt-1">
+                                    <div class="space-y-4">
+                                        <ng-container *ngFor="let tiketPrice of formGroup.get('listTicketPrice')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
+                                            <div class="flex">
+                                                <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-70">
+                                                    <mat-label *ngIf="first">Ticket/Billet & Prix</mat-label>
+                                                    <mat-icon
+                                                        matPrefix
+                                                        class="hidden sm:flex icon-size-5"
+                                                        [svgIcon]="'heroicons_solid:tag'"></mat-icon>
+                                                    <input
+                                                        [formControl]="tiketPrice.get('ticketName')"
+                                                        matInput
+                                                        [placeholder]="'Veuillez Saisir le Nom du Ticket/Billet'"
+                                                        [spellcheck]="false">
+                                                </mat-form-field>
+                                                <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-40 ml-2 sm:ml-4">
+                                                    <mat-label *ngIf="first">Prix</mat-label>
+                                                    <mat-icon
+                                                        matPrefix
+                                                        class="hidden sm:flex icon-size-5"
+                                                        [svgIcon]="'heroicons_solid:currency-dollar'"></mat-icon>
+                                                    <input
+                                                        matInput type="number"
+                                                        [formControl]="tiketPrice.get('price')"
+                                                        [placeholder]="'Prix (En Fcfa)'">
+                                                </mat-form-field>
+                                                <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-60 ml-2 sm:ml-4">
+                                                    <mat-label *ngIf="first">Nombre Disponible</mat-label>
+                                                    <mat-icon
+                                                        matPrefix
+                                                        class="hidden sm:flex icon-size-5"
+                                                        [svgIcon]="'heroicons_solid:qrcode'"></mat-icon>
+                                                    <input
+                                                        matInput type="number"
+                                                        [formControl]="tiketPrice.get('initialQuantityAvailable')"
+                                                        [placeholder]="'Quantité Disponible'">
+                                                </mat-form-field>
+                                                <!-- Remove email -->
+                                                <ng-container *ngIf="!(first && last)">
+                                                    <div
+                                                        class="flex items-center w-10 pl-2"
+                                                        [ngClass]="{'mt-6': first}">
+                                                        <button
+                                                            class="w-8 h-8 min-h-8"
+                                                            mat-icon-button
+                                                            (click)="removeTicket(i)"
+                                                            matTooltip="Remove">
+                                                            <mat-icon
+                                                                class="icon-size-5"
+                                                                [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+                                                        </button>
+                                                    </div>
+                                                </ng-container>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                    <div
+                                        class="group inline-flex items-center mt-2 mb-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+                                        (click)="addNewTicket()">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
+                                        <span class="ml-2 font-medium text-secondary group-hover:underline">Ajouter un Ticket/Billet</span>
+                                    </div>
+                                </div>
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <mat-label>Nombre de Billets/Places Totals disponibles :</mat-label>
+                                        <input type="number" disabled
+                                            matInput
+                                            [value]="getTotalTickets()">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:qrcode'"></mat-icon>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+
+                        <mat-divider class="mt-4 mb-12"></mat-divider>
+
+                        <div class="flex flex-col gt-xs:flex-row gt-xs:items-start">
+                            <div class="gt-xs:max-w-80 gt-xs:pr-12">
+                                <p class="text-lg font-medium">Particularité de l'Evenement (Administrateur)</p>
+                                <p class="text-secondary mb-6">
+                                    Veuillez Renseignez les champs ci-dessous :
+                                </p>
+                            </div>
+                            <div class="flex">
+                                    <mat-label>Definir comme Evénement à ne pas Manquer ? :</mat-label>
+                                    <mat-radio-group
+                                        class="flex flex-auto ml-5"
+                                        [color]="'primary'"
+                                        formControlName = "trending"
+                                        [value]="false">
+                                        <mat-radio-button
+                                            class="mr-2"
+                                            [value]="true">
+                                            Oui
+                                        </mat-radio-button>
+                                        <mat-radio-button
+                                            class="ml-2"
+                                            [value]="false">
+                                            Non
+                                        </mat-radio-button>
+                                    </mat-radio-group>
+                            </div>
+                            <div class="mt-5" *ngIf="formGroup.getRawValue()['trending']">
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <mat-label>URL de la Video de Presentation (Optionnel) : </mat-label>
+                                        <input
+                                            matInput
+                                            formControlName = "trendVideoPath"
+                                            [placeholder]="'Lien URL (Youtube) de la Video de Presentation'">
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            matPrefix
+                                            [svgIcon]="'heroicons_solid:play'"></mat-icon>
+                                    </mat-form-field>
+                                </div>
+
+                                <mat-label class="mt-2">Image Banderole :</mat-label>
+                                <img class="mt-2" style="height: 450px ; width: 900px ; border: 1px solid black ; cursor:pointer;"
+                                     [src]="imageTrend" (click)="selectImageTrend.click()"/>
+                                <input type="file" style=" display: none"
+                                       [multiple]="false"
+                                       [accept]="'image/jpeg, image/png'"
+                                       (change)="uploadImageTrend(selectImageTrend.files)"
+                                       #selectImageTrend>
+                            </div>
+                        </div>
+
+                        <div class="pt-8">
+                            <fuse-alert
+                                [appearance]="'soft'"
+                                [dismissible]="true"
+                                [dismissed]="true"
+                                [name]="'error_on_save'"
+                                [type]="'error'">
+                                Erreur lors de la Sauvegarde, {{errorMessage}}
+                            </fuse-alert>
+                        </div>
+
+                        <div class="pt-8">
+                            <fuse-alert
+                                [appearance]="'soft'"
+                                [dismissible]="true"
+                                [dismissed]="true"
+                                [name]="'success_on_save'"
+                                [type]="'success'">
+                                Enregistrement Effectuée avec Success !, Redirection...
+                            </fuse-alert>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-end border-t -mx-8 mt-8 px-8 py-5 bg-gray-50 dark:bg-gray-700">
+                            <button (click)="router.navigateByUrl('apps/event-list')" mat-button>
+                                Annuler
+                            </button>
+                            <button
+                                [disabled]="formGroup.invalid"
+                                class="px-6 ml-3"
+                                mat-flat-button
+                                [color]="'primary'"
+                                (click)="onSubmit()">
+                                Enregistrer
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </form> <!--[disabled]="formGroup.invalid"-->
+
+            <div class="mt-16">
+                <div class="font-medium">Please pay within 15 days. Thank you for your business.</div>
+                <div class="flex items-start mt-4">
+                    <img
+                        class="flex-0 w-10 mt-2"
+                        src="assets/logo.jpeg">
+                    <div class="ml-6 text-sm text-secondary">
+                        In condimentum malesuada efficitur. Mauris volutpat placerat auctor. Ut ac congue dolor. Quisque scelerisque lacus sed feugiat fermentum.
+                        Cras aliquet facilisis pellentesque. Nunc hendrerit quam at leo commodo, a suscipit tellus dapibus. Etiam at felis volutpat est mollis lacinia.
+                        Mauris placerat sem sit amet velit mollis, in porttitor ex finibus. Proin eu nibh id libero tincidunt lacinia et eget.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

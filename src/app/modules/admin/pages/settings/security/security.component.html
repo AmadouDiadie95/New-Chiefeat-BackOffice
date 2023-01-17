@@ -1,0 +1,80 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+    <form [formGroup]="securityForm">
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Changer Votre Mot de passe</div>
+            <div class="text-secondary">Le Changement prendra effet immediatement après avoir Enregistrer !</div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <!-- Current password -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Mot de passe Actuel</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:key'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'currentPassword'"
+                        type="password"
+                        matInput>
+                </mat-form-field>
+            </div>
+            <!-- New password -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Nouveau Mot de passe</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:key'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'newPassword'"
+                        type="password"
+                        matInput>
+                </mat-form-field>
+                <div class="mt-1 text-md text-hint">Entrez votre Nouveau Mot de passe</div>
+            </div>
+
+            <!-- Confirm New password -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Confirmer le Nouveau Mot de passe.</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:key'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'newPasswordConfirm'"
+                        type="password"
+                        matInput>
+                </mat-form-field>
+                <div class="mt-1 text-md text-hint">Confirmer votre Nouveau Mot de passe.</div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="my-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                (click)="securityForm.reset() ; setFormValue()"
+                type="button">
+                Annuler
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                (click)="updateUser()"
+                type="button"
+                [color]="'primary'">Enregistrer
+            </button>
+        </div>
+    </form>
+
+</div>

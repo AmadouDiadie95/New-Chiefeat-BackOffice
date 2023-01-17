@@ -1,0 +1,114 @@
+<div class="w-full max-w-3xl">
+
+    <!-- Form -->
+    <form [formGroup]="accountForm">
+
+        <!-- Section -->
+        <div class="w-full">
+            <div class="text-xl">Profile</div>
+            <div class="text-secondary">Mettez a jour vos Informations Personnels !</div>
+        </div>
+        <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+            <!-- Name -->
+            <!-- FirstName -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Prenom(s)</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:user'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'firstName'"
+                        placeholder="Prenom(s)"
+                        matInput>
+                </mat-form-field>
+            </div>
+            <!-- LastName -->
+            <div class="sm:col-span-2">
+                <mat-form-field class="fuse-mat-no-subscript w-full">
+                    <mat-label>Nom</mat-label>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:user'"
+                        matPrefix></mat-icon>
+                    <input
+                        [formControlName]="'lastName'"
+                        placeholder="Nom"
+                        matInput>
+                </mat-form-field>
+            </div>
+            <!-- Username/Email -->
+            <div class="sm:col-span-4">
+                <mat-form-field class="fuse-mat-no-subscript fuse-mat-emphasized-affix w-full">
+                    <mat-label>Email</mat-label>
+                    <input
+                        [formControlName]="'email'"
+                        placeholder="Email"
+                        matInput>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="my-10 border-t"></div>
+
+        <!-- Section -->
+        <!--<div class="w-full">
+            <div class="text-xl">Personal Information</div>
+            <div class="text-secondary">Communication details in case we want to connect with you. These will be kept private.</div>
+        </div>-->
+            <div class="grid sm:grid-cols-4 gap-6 w-full mt-8">
+                <!-- Address -->
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Adresse</mat-label>
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:location-marker'"
+                            matPrefix></mat-icon>
+                        <input
+                            [formControlName]="'address'"
+                            [placeholder]="'address'"
+                            matInput>
+                    </mat-form-field>
+                </div>
+                <!-- Phone -->
+                <div class="sm:col-span-2">
+                    <mat-form-field class="fuse-mat-no-subscript w-full">
+                        <mat-label>Numero de Téléphone</mat-label>
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:phone'"
+                            matPrefix></mat-icon>
+                        <input
+                            [formControlName]="'phone'"
+                            [placeholder]="'phone'"
+                            matInput>
+                    </mat-form-field>
+                </div>
+
+            </div>
+
+        <!-- Divider -->
+        <div class="mt-11 mb-10 border-t"></div>
+
+        <!-- Actions -->
+        <div class="flex items-center justify-end">
+            <button
+                mat-stroked-button
+                (click)="accountForm.reset() ; setFormValue()"
+                type="button">
+                Annuler
+            </button>
+            <button
+                class="ml-4"
+                mat-flat-button
+                type="button"
+                (click)="updateUser()"
+                [color]="'primary'">Enregistrer
+            </button>
+        </div>
+    </form>
+
+</div>
