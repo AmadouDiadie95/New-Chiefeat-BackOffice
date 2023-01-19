@@ -75,23 +75,23 @@
                         class="ml-4 px-1 sm:px-4 min-w-10"
                         mat-flat-button
                         [color]="'primary'"
-                        (click)="addNewEntity('Event')">
+                        (click)="addNewEntity('Category')">
                         <mat-icon
                             class="icon-size-5"
                             [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
-                        <span class="hidden sm:inline-block ml-2">Nouveau Menu</span>
+                        <span class="hidden sm:inline-block ml-2">Nouvelle Categorie</span>
                     </button>
                     <div *ngIf="userLogged.admin" class="ml-3"> |
                         <!-- New SubCat -->
-                        <button
+                        <!--<button
                                 class="ml-4 px-1 sm:px-4 min-w-10"
                                 mat-flat-button
                                 (click)="addNewEntity('Category')">
                             <mat-icon
                                 class="icon-size-5"
                                 [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
-                            <span class="hidden sm:inline-block ml-2">Nouvelle Categorie</span>
-                        </button>
+                            <span class="hidden sm:inline-block ml-2">Nouvelle Sous-Categorie</span>
+                        </button>-->
                         <!-- Edit Category -->
                         <button
                                 class="ml-4 px-1 sm:px-4 min-w-10"
@@ -151,7 +151,7 @@
                                                     <ng-container *ngIf="event.image">
                                                         <img
                                                             class="w-full object-cover" style="height:200px"
-                                                            [src]="restAPIService.getImage(event.image)">
+                                                            [src]="'assets/chiefeat/menus/' + event.image">
                                                     </ng-container>
                                                     <div class="flex flex-auto flex-col p-6 space-y-4">
                                                         <!-- Title -->

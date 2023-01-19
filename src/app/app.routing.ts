@@ -68,8 +68,8 @@ export const appRoutes: Route[] = [
     {
         path       : '',
         // TO REACTIVATE WITH KENTIN'S BACKEND
-        // canActivate: [AuthGuard],
-        // canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
         component  : LayoutComponent,
         resolve    : {
             initialData: InitialDataResolver,
@@ -87,7 +87,7 @@ export const appRoutes: Route[] = [
                     {path: '', redirectTo:'menus-list', pathMatch: 'full'},
                     {path: 'menus-list', loadChildren: () => import('app/modules/admin/apps/notes/notes.module').then(m => m.NotesModule)},
                     {path: 'users', loadChildren: () => import('app/modules/admin/apps/users/contacts.module').then(m => m.ContactsModule)},
-                    {path: 'event-detail', loadChildren: () => import('app/modules/admin/apps/event-detail/event-detail.module').then(m => m.EventDetailModule)},
+                    // {path: 'event-detail', loadChildren: () => import('app/modules/admin/apps/event-detail/event-detail.module').then(m => m.EventDetailModule)},
                     {path: 'rapports', loadChildren: () => import('app/modules/admin/apps/file-manager/file-manager.module').then(m => m.FileManagerModule)},
                     {path: 'help-center', loadChildren: () => import('app/modules/admin/apps/help-center/help-center.module').then(m => m.HelpCenterModule)},
                 ]},

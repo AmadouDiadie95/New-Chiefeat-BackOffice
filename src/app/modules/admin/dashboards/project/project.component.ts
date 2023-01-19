@@ -28,6 +28,29 @@ export class ProjectComponent implements OnInit, OnDestroy
 
     userLogged: UserModel = this.authService.getUserLogged() ;
 
+    page: number = 0 ;
+    size: number = 5 ;
+    currentPage: number = 0 ;
+    totalTickets: number = 0 ;
+    totalPages: number = 1 ;
+    ticketTablesColumns: string[] = ['Nom','Email','Teléphone',"Date d'Adhésion", 'Status', 'Options'];
+    listToShow: any[] = [
+        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
+        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
+        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
+        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
+        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
+    ] ;
+
+    tablesColumns2: string[] = ['Date de debut','Date de fin','Eater',"Chief", "Details"];
+    listToShow2: any[] = [
+        {startDate: '01-01-2023', endDate: '04-01-2023', eater: 'Hugo LEVOIR', chief:'john Doe', options: 'Details'},
+        {startDate: '01-01-2023', endDate: '04-01-2023', eater: 'Hugo LEVOIR', chief:'john Doe', options: 'Details'},
+        {startDate: '01-01-2023', endDate: '04-01-2023', eater: 'Hugo LEVOIR', chief:'john Doe', options: 'Details'},
+        {startDate: '01-01-2023', endDate: '04-01-2023', eater: 'Hugo LEVOIR', chief:'john Doe', options: 'Details'},
+       ] ;
+    searchKey: string = '' ;
+
     /**
      * Constructor
      */
@@ -436,5 +459,10 @@ export class ProjectComponent implements OnInit, OnDestroy
                 }
             }
         };
+    }
+
+    getPaging(event) {
+        console.log(event) ;
+        // this.findEventTicketsByPage(event.pageIndex, event.pageSize);
     }
 }

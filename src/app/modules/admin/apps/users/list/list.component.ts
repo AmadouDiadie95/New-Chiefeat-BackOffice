@@ -30,7 +30,8 @@ export class ContactsListComponent implements OnInit, OnDestroy
 {
     @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
-    users$: Observable<AppDataState<any>> | null = null ;
+    // users$: Observable<AppDataState<any>> | null = null  ;
+    users$: any  ;
     initialUsersList: UserModel[] = [] ;
     usersList: UserModel[] = [] ;
     DataStateEnum = DataStateEnum ;
@@ -66,7 +67,9 @@ export class ContactsListComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.users$ = this.restAPIService.findAll('users').pipe(
+        this.users$ = {dataState: DataStateEnum.LOADED, data: [this.userLogged]} ;
+        this.usersList = [this.userLogged] ;
+        /*this.users$ = this.restAPIService.findAll('users').pipe(
             map((data:IResponse)=>{
                 if (data.ok) {
                     // console.log(data) ;
@@ -83,7 +86,7 @@ export class ContactsListComponent implements OnInit, OnDestroy
             }),
             startWith({dataState:DataStateEnum.LOADING}),
             catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message}))
-        ) ;
+        ) ;*/
 
 
 

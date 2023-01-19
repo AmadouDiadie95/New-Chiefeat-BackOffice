@@ -30,6 +30,31 @@ export class AuthSignInComponent implements OnInit
     authBody: AuthBody;
     loginForm: FormGroup;
 
+    user: any = {
+        id:1,
+        username: "chiefeat_admin@gmail.com",
+        password: "chiefeat@admin2K23",
+        firstName : "Chiefeat",
+        lastName : "Admin",
+        fullName : "Chiefeat Admin",
+        phone : "92931749",
+        email : "chiefeat_admin@gmail.com",
+        address: "Bamako",
+        avatar: "unknow.jpg",
+        typeUser: TYPE_USER.ADMIN,
+        active: true,
+        admin: true,
+        hasChangedDefaultPassword: true,
+        roles: ["ADMIN", "EDITEUR"],
+        entityId: "92931749",
+        token:"djvkjdfkjvdsfgodsfglkdklgfjdfjgdjgkjvdlkgjvjkdfgldfghdf"
+    } ;
+    /*
+    * .username("ticket_admin@gmail.com")
+                .password(passwordEncoder.encode("ticket@admin2K22"))
+
+                * */
+
     /**
      * Constructor
      */
@@ -64,8 +89,8 @@ export class AuthSignInComponent implements OnInit
         localStorage.removeItem('isLoggedin');
         // Create the form
         this.loginForm = new FormGroup({
-            email: new FormControl('ticket_admin@gmail.com', [Validators.required]),
-            password: new FormControl('ticket@admin2K22', [Validators.required])
+            email: new FormControl('chiefeat_admin@gmail.com', [Validators.required]),
+            password: new FormControl('chiefeat@admin2K23', [Validators.required])
             /*email: new FormControl('', [Validators.required]),
             password: new FormControl('', [Validators.required])*/
         });
@@ -80,6 +105,66 @@ export class AuthSignInComponent implements OnInit
      * Sign in
      */
     signIn(): void
+    {
+        // this.loginFormSubmitted = true;
+        // Return if the form is invalid
+        /*if ( this.signInForm.invalid )
+        {
+            return;
+        }*/
+
+        // Disable the form
+        // this.signInForm.disable();
+
+        // Hide the alert
+        this.showAlert = false;
+
+        // Sign in
+        if (this.loginForm.value.email && this.loginForm.value.password) {
+            // console.log(this.loginForm.value)
+            this.authBody.email = this.loginForm.value.email;
+            this.authBody.password = this.loginForm.value.password;
+            this.authBody.typeUser = TYPE_USER.ADMIN ;
+            console.log(this.authBody) ;
+            if (this.authBody.email == this.user.email && this.authBody.password == this.user.password) {
+                localStorage.setItem('app-token', btoa(JSON.stringify(this.user.token)));
+                localStorage.setItem('isLoggedin', 'true');
+                localStorage.setItem('userLogged', JSON.stringify(this.user));
+                this.dataSubjectService.dispatchData('userLogged',this.user) ;
+                // this.dataSubjectService.dispatchData('authToken',ret.data.user) ;
+                // console.log('*********************************************')
+                this._router.navigateByUrl('/dashboard');
+            } else {
+                this.alert = {
+                    type   : 'error',
+                    message: 'Email ou Mot de passe Incorrect...'
+                };
+
+                // Show the alert
+                this.showAlert = true;
+            }
+
+        } else {
+// Re-enable the form
+            // this.signInForm.enable();
+
+            // Reset the form
+            // this.signInNgForm.resetForm();
+
+            // Set the alert
+            this.alert = {
+                type   : 'error',
+                message: 'Wrong email or password'
+            };
+
+            // Show the alert
+            this.showAlert = true;
+        }
+    }
+    /**
+     * Sign in
+     */
+    signInTHEREALONE(): void
     {
         // this.loginFormSubmitted = true;
         // Return if the form is invalid

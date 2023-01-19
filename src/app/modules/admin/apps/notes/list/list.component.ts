@@ -21,6 +21,9 @@ import {EventModel} from "../../../../../models/entities/event.model";
 import {IResponse} from "../../../../../models/base/IResponse";
 import {DatePipe} from "@angular/common";
 import {NotesDetailsComponent} from "../details/details.component";
+import {HttpClient} from "@angular/common/http";
+import {cloneDeep} from "lodash-es";
+import {MenuDetailsComponent} from "../details-menu/details.component";
 
 @Component({
     selector       : 'notes-list',
@@ -61,7 +64,8 @@ export class NotesListComponent implements OnInit, OnDestroy
         private route: ActivatedRoute,
         private dataSubjectService: DataSubjectService,
         private datePipe: DatePipe,
-        private router: Router
+        private router: Router,
+        private httpClient : HttpClient
     )
     {
     }
@@ -203,11 +207,26 @@ export class NotesListComponent implements OnInit, OnDestroy
 
     getAllCategories() {
         // console.log("get all Categories") ;
-        this.restAPIService.findAll('api/categories').subscribe((response:IResponse)=>{
+        /*this.restAPIService.findAll('api/categories').subscribe((response:IResponse)=>{
             // console.log(response) ;
             if (response.ok) {
                 this.allCategories = response.data ;
                 this.changeCat(this.allCategories[0]) ;
+                // this.exportData(this.allCategories) ;
+                // this.store.dispatch({type: GlobalStateActionsTypesEnum.SET_ALL_CATEGORIES, payload:response.data}) ;
+            }
+            // this.loadDataFromStore() ;
+        },error => {
+            console.log(error) ;
+            // this.loadDataFromStore() ;
+        }) ;*/
+
+        this.httpClient.get('assets/chiefeat/allCategories.json').subscribe((response:any)=>{
+            // console.log(response) ;
+            if (response) {
+                this.allCategories = response ;
+                this.changeCat(this.allCategories[0]) ;
+                // this.exportData(this.allCategories) ;
                 // this.store.dispatch({type: GlobalStateActionsTypesEnum.SET_ALL_CATEGORIES, payload:response.data}) ;
             }
             // this.loadDataFromStore() ;
@@ -217,6 +236,17 @@ export class NotesListComponent implements OnInit, OnDestroy
         }) ;
 
     }
+
+    exportData = (data) => {
+    const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+        JSON.stringify(data)
+    )}`;
+    const link = document.createElement("a");
+    link.href = jsonString;
+    link.download = "institutionExample.json";
+
+    link.click();
+    };
 
 
 
@@ -288,11 +318,15 @@ export class NotesListComponent implements OnInit, OnDestroy
         // console.log(event) ;
         // this.dataSubjectService.dispatchEvent(event) ;
         // this.router.navigateByUrl('dashboard/finance/' + event.id);
-        this.router.navigateByUrl('apps/event-detail/detail/' + event.id) ;
+        // this.router.navigateByUrl('apps/event-detail/detail/' + event.id) ;
         /*if (event.dateReversed >= this.todayDate ) {
             this.router.navigateByUrl('apps/event-detail/detail/' + event.id);
         } else {
             this.router.navigateByUrl('dashboard/finance/' + event.id);
         }*/
+        this._matDialog.open(MenuDetailsComponent, {
+            autoFocus: false,
+            data     : cloneDeep(event)
+        });
     }
 }

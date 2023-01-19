@@ -12,15 +12,15 @@
     <!-- Preview -->
     <div class="aspect-w-9 aspect-h-6 mt-8">
         <div class="flex items-center justify-center border rounded-lg bg-gray-50 dark:bg-card">
-            <ng-container *ngIf="item.type === 'folder'">
+            <!--<ng-container *ngIf="item.type === 'folder'">
                 <mat-icon
                     class="icon-size-14 text-hint"
                     [svgIcon]="'iconsmind:folder'"></mat-icon>
-            </ng-container>
+            </ng-container>-->
             <ng-container *ngIf="item.type !== 'folder'">
                 <mat-icon
                     class="icon-size-14 text-hint"
-                    [svgIcon]="'iconsmind:file'"></mat-icon>
+                    [svgIcon]="'heroicons_outline:annotation'"></mat-icon>
             </ng-container>
         </div>
     </div>
@@ -28,7 +28,7 @@
     <!-- Name & Type -->
     <div class="flex flex-col items-start mt-8">
         <div class="text-xl font-medium">{{item.name}}</div>
-        <div
+        <!--<div
             class="mt-1 px-1.5 rounded text-sm font-semibold leading-5 text-white"
             [class.bg-indigo-600]="item.type === 'folder'"
             [class.bg-red-600]="item.type === 'PDF'"
@@ -37,21 +37,21 @@
             [class.bg-gray-600]="item.type === 'TXT'"
             [class.bg-amber-600]="item.type === 'JPG'">
             {{item.type.toUpperCase()}}
-        </div>
+        </div>-->
     </div>
 
     <!-- Information -->
     <div class="text-lg font-medium mt-8">Information</div>
     <div class="flex flex-col mt-4 border-t border-b divide-y font-medium">
         <div class="flex items-center justify-between py-3">
-            <div class="text-secondary">Created By</div>
+            <div class="text-secondary">User</div>
             <div>{{item.createdBy}}</div>
         </div>
         <div class="flex items-center justify-between py-3">
-            <div class="text-secondary">Created At</div>
+            <div class="text-secondary">Date de Signalement</div>
             <div>{{item.createdAt}}</div>
         </div>
-        <div class="flex items-center justify-between py-3">
+        <!--<div class="flex items-center justify-between py-3">
             <div class="text-secondary">Modified At</div>
             <div>{{item.modifiedAt}}</div>
         </div>
@@ -64,17 +64,17 @@
                 <div class="text-secondary">Contents</div>
                 <div>{{item.contents}}</div>
             </div>
-        </ng-container>
+        </ng-container>-->
     </div>
 
     <!-- Description -->
     <div class="flex items-center justify-between mt-8">
-        <div class="text-lg font-medium">Description</div>
-        <button mat-icon-button>
+        <div class="text-lg font-medium">Contenu du Message</div>
+        <!--<button mat-icon-button>
             <mat-icon
                 class="icon-size-5"
                 [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
-        </button>
+        </button>-->
     </div>
     <div class="flex mt-2 border-t">
         <div class="py-3">
@@ -82,13 +82,13 @@
                 <div>{{item.description}}</div>
             </ng-container>
             <ng-container *ngIf="!item.description">
-                <div class="italic text-secondary">Click here to add a description</div>
+                <div class="italic text-secondary">Lorem ipsudem</div>
             </ng-container>
         </div>
     </div>
 
     <!-- Actions -->
-    <div class="grid grid-cols-2 gap-4 w-full mt-8">
+    <!--<div class="grid grid-cols-2 gap-4 w-full mt-8">
         <button
             class="flex-auto"
             mat-flat-button
@@ -100,6 +100,6 @@
             mat-stroked-button>
             Delete
         </button>
-    </div>
+    </div>-->
 
 </div>
