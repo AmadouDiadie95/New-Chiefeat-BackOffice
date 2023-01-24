@@ -18,13 +18,15 @@ import { NotesLabelsComponent } from 'app/modules/admin/apps/notes/labels/labels
 import { notesRoutes } from 'app/modules/admin/apps/notes/notes.routing';
 import {FuseAlertModule} from "../../../../../@fuse/components/alert";
 import {MatStepperModule} from "@angular/material/stepper";
+import {MenuDetailsComponent} from "./details-menu/details.component";
 
 @NgModule({
     declarations: [
         NotesComponent,
         NotesDetailsComponent,
         NotesListComponent,
-        NotesLabelsComponent
+        NotesLabelsComponent,
+        MenuDetailsComponent
     ],
     imports: [
         RouterModule.forChild(notesRoutes),

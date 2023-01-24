@@ -9,6 +9,9 @@ import { fileManagerRoutes } from 'app/modules/admin/apps/file-manager/file-mana
 import { FileManagerComponent } from 'app/modules/admin/apps/file-manager/file-manager.component';
 import { FileManagerDetailsComponent } from 'app/modules/admin/apps/file-manager/details/details.component';
 import { FileManagerListComponent } from 'app/modules/admin/apps/file-manager/list/list.component';
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
     declarations: [
@@ -22,7 +25,10 @@ import { FileManagerListComponent } from 'app/modules/admin/apps/file-manager/li
         MatIconModule,
         MatSidenavModule,
         MatTooltipModule,
-        SharedModule
+        SharedModule,
+        MatButtonToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
     ]
 })
 export class FileManagerModule

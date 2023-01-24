@@ -16,6 +16,11 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { SharedModule } from 'app/shared/shared.module';
 import { ProjectComponent } from 'app/modules/admin/dashboards/project/project.component';
 import { projectRoutes } from 'app/modules/admin/dashboards/project/project.routing';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {CommonModule} from "@angular/common";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatInputModule} from "@angular/material/input";
 
 @NgModule({
     declarations: [
@@ -36,7 +41,14 @@ import { projectRoutes } from 'app/modules/admin/dashboards/project/project.rout
         MatTabsModule,
         NgApexchartsModule,
         TranslocoModule,
-        SharedModule
+        SharedModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatButtonToggleModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatPaginatorModule
     ]
 })
 export class ProjectModule

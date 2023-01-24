@@ -24,10 +24,10 @@
                 <div class="flex flex-col sm:flex-row items-start sm:items-center sm:justify-between p-6 sm:py-12 md:px-8 border-b bg-card dark:bg-transparent">
                     <!-- Title -->
                     <div>
-                        <div class="text-4xl font-extrabold tracking-tight leading-none">File Manager</div>
+                        <div class="text-4xl font-extrabold tracking-tight leading-none">Liste des Rapports Signalés</div>
                         <div class="flex items-center mt-0.5 font-medium text-secondary">
                             <ng-container *ngIf="!items.path.length">
-                                {{items.folders.length}} folders, {{items.files.length}} files
+                                <!--{{items.folders.length}} folders, -->{{items.files.length}} rapports signalés
                             </ng-container>
                             <!-- Breadcrumbs -->
                             <ng-container *ngIf="items.path.length">
@@ -56,13 +56,39 @@
                     </div>
                     <!-- Actions -->
                     <div class="mt-4 sm:mt-0">
+                        <!-- Main actions -->
+                        <div class="flex-auto items-center mt-4 sm:mt-0 md:mt-4">
+                            <!-- Search -->
+                            <div class="flex">
+                                <mat-form-field
+                                    class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded w-full min-w-50">
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        matPrefix
+                                        [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                                    <input
+                                        matInput
+                                        [autocomplete]="'off'"
+                                        [placeholder]="'Search...'">
+                                </mat-form-field>
+
+                                <!-- Add contact button (click)="findEventTicketsByPage(page, size)" -->
+                                <button
+                                    class="ml-4 mr-5"
+                                    mat-flat-button
+                                    [color]="'primary'">
+<!--                                    <mat-icon [svgIcon]="'heroicons_outline:search'"></mat-icon>-->
+                                    <span class="ml-2 mr-1">Rechercher</span>
+                                </button>
+                            </div>
+                        </div>
                         <!-- Upload button -->
-                        <button
+                        <!--<button
                             mat-flat-button
                             [color]="'primary'">
                             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                             <span class="ml-2 mr-1">Upload file</span>
-                        </button>
+                        </button>-->
                     </div>
                 </div>
 
@@ -70,7 +96,7 @@
                 <ng-container *ngIf="items && (items.folders.length > 0 || items.files.length > 0); else noItems">
                     <div class="p-6 md:p-8 space-y-8">
                         <!-- Folders -->
-                        <ng-container *ngIf="items.folders.length > 0">
+                        <!--<ng-container *ngIf="items.folders.length > 0">
                             <div>
                                 <div class="font-medium">Folders</div>
                                 <div
@@ -91,7 +117,7 @@
                                                 [routerLink]="['/apps/file-manager/folders/', folder.id]">
                                                 <div class="aspect-w-9 aspect-h-6">
                                                     <div class="flex items-center justify-center">
-                                                        <!-- Icon -->
+                                                        &lt;!&ndash; Icon &ndash;&gt;
                                                         <mat-icon
                                                             class="icon-size-14 text-hint"
                                                             [svgIcon]="'iconsmind:folder'"></mat-icon>
@@ -110,12 +136,12 @@
                                     </ng-container>
                                 </div>
                             </div>
-                        </ng-container>
+                        </ng-container>-->
 
                         <!-- Files -->
                         <ng-container *ngIf="items.files.length > 0">
                             <div>
-                                <div class="font-medium">Files</div>
+                                <div class="font-medium">Rapports</div>
                                 <div
                                     class="flex flex-wrap -m-2 mt-2">
                                     <ng-container *ngFor="let file of items.files; trackBy:trackByFn">
@@ -128,8 +154,8 @@
                                                     <div class="relative">
                                                         <mat-icon
                                                             class="icon-size-14 text-hint"
-                                                            [svgIcon]="'iconsmind:file'"></mat-icon>
-                                                        <div
+                                                            [svgIcon]="'heroicons_outline:annotation'"></mat-icon>
+                                                        <!--<div
                                                             class="absolute left-0 bottom-0 px-1.5 rounded text-sm font-semibold leading-5 text-white"
                                                             [class.bg-red-600]="file.type === 'PDF'"
                                                             [class.bg-blue-600]="file.type === 'DOC'"
@@ -137,7 +163,7 @@
                                                             [class.bg-gray-600]="file.type === 'TXT'"
                                                             [class.bg-amber-600]="file.type === 'JPG'">
                                                             {{file.type.toUpperCase()}}
-                                                        </div>
+                                                        </div>-->
                                                     </div>
                                                 </div>
                                             </div>

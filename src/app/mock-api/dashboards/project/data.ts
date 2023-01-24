@@ -21,28 +21,28 @@ export const project = {
                 'needs-triage' : 5
             }
         },
-        labels  : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        labels  : ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
         series  : {
             'this-week': [
                 {
-                    name: 'New issues',
+                    name: 'Terminées',
                     type: 'line',
                     data: [42, 28, 43, 34, 20, 25, 22]
                 },
                 {
-                    name: 'Closed issues',
+                    name: 'Annulées',
                     type: 'column',
                     data: [11, 10, 8, 11, 8, 10, 17]
                 }
             ],
             'last-week': [
                 {
-                    name: 'New issues',
+                    name: 'Terminées',
                     type: 'line',
                     data: [37, 32, 39, 27, 18, 24, 20]
                 },
                 {
-                    name: 'Closed issues',
+                    name: 'Annulées',
                     type: 'column',
                     data: [9, 8, 10, 12, 7, 11, 15]
                 }
@@ -69,70 +69,76 @@ export const project = {
     schedule          : {
         today   : [
             {
-                title   : 'Group Meeting',
-                time    : 'in 32 minutes',
-                location: 'Conference room 1B'
+                title   : 'Chief',
+                time    : '07:00',
+                location: 'Adresse Eater'
             },
             {
-                title: 'Coffee Break',
-                time : '10:30 AM'
+                title: 'Chief',
+                time : '10:30',
+                location: 'Adresse Eater'
             },
             {
-                title: 'Public Beta Release',
-                time : '11:00 AM'
+                title: 'Chief',
+                time : '11:00',
+                location: 'Adresse Eater'
             },
             {
-                title: 'Lunch',
-                time : '12:10 PM'
+                title: 'Chief',
+                time : '12:10',
+                location: 'Adresse Eater'
             },
             {
-                title   : 'Dinner with David',
-                time    : '05:30 PM',
-                location: 'Magnolia'
+                title   : 'Chief',
+                time    : '17:30',
+                location: 'Adresse Eater'
             },
             {
-                title   : 'Jane\'s Birthday Party',
-                time    : '07:30 PM',
-                location: 'Home'
+                title   : 'Chief',
+                time    : '19:30',
+                location: 'Adresse Eater'
             },
             {
-                title   : 'Overseer\'s Retirement Party',
-                time    : '09:30 PM',
-                location: 'Overseer\'s room'
+                title   : 'Chief',
+                time    : '21:30',
+                location: 'Adresse Eater'
             }
         ],
         tomorrow: [
             {
-                title   : 'Marketing Meeting',
-                time    : '09:00 AM',
-                location: 'Conference room 1A'
+                title   : 'Chief',
+                time    : '07:00',
+                location: 'Adresse Eater'
             },
             {
-                title: 'Public Announcement',
-                time : '11:00 AM'
+                title: 'Chief',
+                time : '10:30',
+                location: 'Adresse Eater'
             },
             {
-                title: 'Lunch',
-                time : '12:10 PM'
+                title: 'Chief',
+                time : '11:00',
+                location: 'Adresse Eater'
             },
             {
-                title   : 'Meeting with Beta Testers',
-                time    : '03:00 PM',
-                location: 'Conference room 2C'
+                title: 'Chief',
+                time : '12:10',
+                location: 'Adresse Eater'
             },
             {
-                title: 'Live Stream',
-                time : '05:30 PM'
+                title   : 'Chief',
+                time    : '17:30',
+                location: 'Adresse Eater'
             },
             {
-                title   : 'Release Party',
-                time    : '07:30 PM',
-                location: 'CEO\'s house'
+                title   : 'Chief',
+                time    : '19:30',
+                location: 'Adresse Eater'
             },
             {
-                title   : 'CEO\'s Private Party',
-                time    : '09:30 PM',
-                location: 'CEO\'s Penthouse'
+                title   : 'Chief',
+                time    : '21:30',
+                location: 'Adresse Eater'
             }
         ]
     },

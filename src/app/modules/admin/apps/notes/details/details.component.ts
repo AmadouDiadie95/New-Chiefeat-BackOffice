@@ -51,7 +51,7 @@ export class NotesDetailsComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        console.log(this._data)
+        console.log(this._data) ;
         if (!this._data.id) {
             this.horizontalStepperForm = this._formBuilder.group({
                 step1: this._formBuilder.group({
@@ -132,7 +132,7 @@ export class NotesDetailsComponent implements OnInit, OnDestroy
     // -----------------------------------------------------------------------------------------------------
     deleteCategory() {
         let errorDialog = deleteDialogConfig ;
-        errorDialog.message  = "Etes-Vous Sure de Vouloir Supprimer la Categorie ? Cette Action est Irréversible et Supprimera tous les Evénements Liés !!!"
+        errorDialog.message  = "Etes-Vous Sure de Vouloir Supprimer la Categorie ? Cette Action est Irréversible et Supprimera tous les Menus Liés !!!"
         this._fuseConfirmationService.open(errorDialog).afterClosed().subscribe((result)=> {
             console.log(result) ;
             if (result === 'confirmed') {

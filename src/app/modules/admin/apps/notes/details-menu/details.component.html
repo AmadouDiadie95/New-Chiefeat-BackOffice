@@ -1,0 +1,43 @@
+<div class="flex flex-col flex-auto md:w-160 md:min-w-160 -m-6">
+    <ng-container>
+        <!-- Image -->
+        <ng-container>
+            <div class="relative w-full">
+                <!--<div class="absolute right-0 bottom-0 p-4">
+                    <button
+                        mat-icon-button
+                        (click)="removeImage(_data)">
+                        <mat-icon
+                            class="text-white"
+                            [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+                    </button>
+                </div>-->
+                <img
+                    class="w-full object-cover"
+                    [src]="'assets/chiefeat/menus/' + _data.image">
+            </div>
+        </ng-container>
+        <div class="m-4">
+            <!-- Title -->
+            <strong style="margin-left: 10px ; font-size: 20px">
+                {{_data.title}} - 50,45 €
+            </strong>
+            <!-- Note -->
+            <div class="flex w-full py-5 px-2">
+                {{_data.description}}
+            </div>
+            <!-- Edit Actions -->
+            <ng-container *ngIf="_data.id">
+                <div class="flex items-center justify-between mt-4">
+                    <!-- Close -->
+                    <button
+                        mat-flat-button
+                        matDialogClose>
+                        Close
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+
+</div>
