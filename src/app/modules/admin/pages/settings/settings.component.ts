@@ -42,7 +42,7 @@ export class SettingsComponent implements OnInit, OnDestroy
             {
                 id         : 'account',
                 icon       : 'heroicons_outline:user-circle',
-                title      : 'Profile',
+                title      : 'Profil',
                 description: 'Gerer les Parametres de votre Profile'
             },
             {

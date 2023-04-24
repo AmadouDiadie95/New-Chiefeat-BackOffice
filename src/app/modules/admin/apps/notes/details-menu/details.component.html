@@ -20,12 +20,33 @@
         <div class="m-4">
             <!-- Title -->
             <strong style="margin-left: 10px ; font-size: 20px">
-                {{_data.title}} - 50,45 €
+                {{_data.title}}
             </strong>
+            <br><br>
+            <!-- Chief -->
+            <div style="margin-left: 10px ; font-size: 15px">
+                Prix : <strong>50,45 €</strong>
+            </div> <br>
+            <!-- Chief -->
+            <div style="margin-left: 10px ; font-size: 15px">
+                Chief : <strong>John DOE</strong>
+            </div> <br>
             <!-- Note -->
             <div class="flex w-full py-5 px-2">
                 {{_data.description}}
-            </div>
+            </div> <br>
+            <!-- Nombre de Personnes -->
+            <div style="margin-left: 10px ; font-size: 15px">
+                Nombre de Personnes : <strong>5</strong>
+            </div> <br>
+            <!-- Temps de préparation -->
+            <div style="margin-left: 10px ; font-size: 15px">
+                Temps de préparation : <strong>1/30 min</strong>
+            </div> <br>
+            <!-- Categories -->
+            <div style="margin-left: 10px ; font-size: 15px">
+                Categories : <strong>Categorie 1, Categorie 2, Categorie 3</strong>
+            </div> <br>
             <!-- Edit Actions -->
             <ng-container *ngIf="_data.id">
                 <div class="flex items-center justify-between mt-4">
@@ -33,7 +54,7 @@
                     <button
                         mat-flat-button
                         matDialogClose>
-                        Close
+                        Fermer
                     </button>
                 </div>
             </ng-container>

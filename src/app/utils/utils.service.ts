@@ -13,7 +13,7 @@ export class Utils {
     let headers = new HttpHeaders();
 
     if (token) { // token is present
-      headers = headers.set('authorization', 'Bearer ' + token);
+      headers = headers.set('Authorization', 'Bearer ' + token);
     }
     return {
       headers: headers
@@ -21,12 +21,17 @@ export class Utils {
   }
 
   getToken(): string {
-    let authBody: AuthBody = this.getAuthBody();
+    /*let authBody: AuthBody = this.getAuthBody();
     if (authBody) {
       return authBody.token;
     } else {
       return null;
-    }
+    }*/
+      if (!localStorage.getItem('app-token')) {
+          return null;
+      } else {
+          return localStorage.getItem('app-token') ;
+      }
   }
 
   getAppUser(): any {
@@ -51,7 +56,7 @@ export class Utils {
     let _headers = new HttpHeaders();
     if (token) {
       _headers = _headers.set('enctype', 'multipart/form-data');
-      _headers = _headers.set('authorization', 'Bearer ' + token);
+      _headers = _headers.set('Authorization', 'Bearer ' + token);
     }
     return {headers: _headers};
   }

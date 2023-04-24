@@ -38,9 +38,9 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
 
     {
-        id      : 'gestion-des-menus',
-        title   : 'Gestion des Menus',
-        tooltip : 'Gestion des Menus',
+        id      : 'recettes',
+        title   : 'Recettes',
+        tooltip : 'Recettes',
         type    : 'basic',
         icon    : 'heroicons_outline:sparkles',
         link    : '/apps/menus-list'
@@ -62,8 +62,8 @@ export const horizontalNavigation: FuseNavigationItem[] = [
     },
     {
         id      : 'rapports',
-        title   : 'Rapports',
-        tooltip : 'Rapports',
+        title   : 'Signalements',
+        tooltip : 'Signalements',
         type    : 'basic',
         icon    : 'heroicons_outline:cloud',
         link    : '/apps/rapports'

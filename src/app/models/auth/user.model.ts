@@ -10,16 +10,8 @@ export class UserModel extends BaseEntityModel {
     avatar? : string = ''  ;
     active? : boolean = false ;
     admin? : boolean = false ;
-    hasChangedDefaultPassword? : boolean = false ;
     email? : string = ''  ;
     phone? : string = ''  ;
     address? : string = ''  ;
-    profession?  : string = ''  ;
-    roles: RoleModel[];
-    typeUser?: TYPE_USER ;
 
-}
-
-export enum TYPE_USER {
-    ADMIN = 'ADMIN',
 }

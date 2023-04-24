@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {environment} from "../../environments/environment.prod";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Utils} from "../utils/utils.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +10,16 @@ import {Observable} from "rxjs";
 export class RestAPIService {
 
     urlBackend = environment.urlBackend ;
-    readonly httpOptions: any;
+    httpOptions: any = new Utils().httpHeaders();
 
     constructor(private httpClient : HttpClient) {
         // this.httpOptions = new Utils().httpHeaders();
+        console.log(this.httpOptions)
     }
 
     findAll(entityName):Observable<any>{
         console.log("Request FindAll : " + this.urlBackend + "/" + entityName) ;
-        return this.httpClient.get<Observable<any>>(this.urlBackend + "/" +  entityName) ;
+        return this.httpClient.get<Observable<any>>(this.urlBackend + "/" +  entityName, this.httpOptions) ;
     }
 
     findById(entityName, id:number):Observable<any>{
@@ -30,7 +32,7 @@ export class RestAPIService {
         console.log("Request save : " + this.urlBackend + "/" + entityName) ;
         console.log("Object Send to save : ") ;
         console.log(resuestBody) ;
-        return this.httpClient.post<Observable<any>>(this.urlBackend + "/" +  entityName, resuestBody) ;
+        return this.httpClient.post<Observable<any>>(this.urlBackend + "/" +  entityName, resuestBody, this.httpOptions) ;
 
     }
 

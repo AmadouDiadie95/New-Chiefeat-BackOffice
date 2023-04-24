@@ -97,7 +97,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
                     firstName: [user.firstName, [Validators.required]],
                     email: [user.email, [Validators.required]],
                     password: [user.password],
-                    role: [ user.roles.some(role => (role.name === 'ADMIN') ) ? 'ADMIN' : 'EDITEUR', [Validators.required]],
+                    role: [],
                     phone: [user.phone],
                     address: [user.address]
                 });
@@ -139,7 +139,6 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
         this.user.activate = true ;
         this.user.active = true ;
         this.user.username = this.user.email ;
-        this.user.roles = this.userForm.value.role === 'ADMIN' ? this.listRoles : this.listRoles.filter(role => (role.name === 'EDITEUR'))  ;
         this.user.admin = this.userForm.value.role === 'ADMIN'  ;
         this.user.avatar = 'unknow.jpg'  ;
         // console.log(this.user) ;

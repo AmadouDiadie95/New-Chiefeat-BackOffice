@@ -6,7 +6,7 @@ import {FuseAlertType} from '@fuse/components/alert';
 import {AuthBody} from "../../../utils/auth-body";
 import {AuthService} from 'app/services/auth.service';
 import {DataSubjectService} from "../../../services/data-subject.service";
-import {TYPE_USER} from "../../../models/auth/user.model";
+import {UserModel} from "../../../models/auth/user.model";
 
 @Component({
     selector     : 'auth-sign-in',
@@ -41,7 +41,6 @@ export class AuthSignInComponent implements OnInit
         email : "chiefeat_admin@gmail.com",
         address: "Bamako",
         avatar: "unknow.jpg",
-        typeUser: TYPE_USER.ADMIN,
         active: true,
         admin: true,
         hasChangedDefaultPassword: true,
@@ -49,11 +48,6 @@ export class AuthSignInComponent implements OnInit
         entityId: "92931749",
         token:"djvkjdfkjvdsfgodsfglkdklgfjdfjgdjgkjvdlkgjvjkdfgldfghdf"
     } ;
-    /*
-    * .username("ticket_admin@gmail.com")
-                .password(passwordEncoder.encode("ticket@admin2K22"))
-
-                * */
 
     /**
      * Constructor
@@ -89,8 +83,8 @@ export class AuthSignInComponent implements OnInit
         localStorage.removeItem('isLoggedin');
         // Create the form
         this.loginForm = new FormGroup({
-            email: new FormControl('chiefeat_admin@gmail.com', [Validators.required]),
-            password: new FormControl('chiefeat@admin2K23', [Validators.required])
+            email: new FormControl('joshuaaivodji@gmail.com', [Validators.required]),
+            password: new FormControl('1234567890', [Validators.required])
             /*email: new FormControl('', [Validators.required]),
             password: new FormControl('', [Validators.required])*/
         });
@@ -124,69 +118,8 @@ export class AuthSignInComponent implements OnInit
             // console.log(this.loginForm.value)
             this.authBody.email = this.loginForm.value.email;
             this.authBody.password = this.loginForm.value.password;
-            this.authBody.typeUser = TYPE_USER.ADMIN ;
             console.log(this.authBody) ;
-            if (this.authBody.email == this.user.email && this.authBody.password == this.user.password) {
-                localStorage.setItem('app-token', btoa(JSON.stringify(this.user.token)));
-                localStorage.setItem('isLoggedin', 'true');
-                localStorage.setItem('userLogged', JSON.stringify(this.user));
-                this.dataSubjectService.dispatchData('userLogged',this.user) ;
-                // this.dataSubjectService.dispatchData('authToken',ret.data.user) ;
-                // console.log('*********************************************')
-                this._router.navigateByUrl('/dashboard');
-            } else {
-                this.alert = {
-                    type   : 'error',
-                    message: 'Email ou Mot de passe Incorrect...'
-                };
-
-                // Show the alert
-                this.showAlert = true;
-            }
-
-        } else {
-// Re-enable the form
-            // this.signInForm.enable();
-
-            // Reset the form
-            // this.signInNgForm.resetForm();
-
-            // Set the alert
-            this.alert = {
-                type   : 'error',
-                message: 'Wrong email or password'
-            };
-
-            // Show the alert
-            this.showAlert = true;
-        }
-    }
-    /**
-     * Sign in
-     */
-    signInTHEREALONE(): void
-    {
-        // this.loginFormSubmitted = true;
-        // Return if the form is invalid
-        /*if ( this.signInForm.invalid )
-        {
-            return;
-        }*/
-
-        // Disable the form
-        // this.signInForm.disable();
-
-        // Hide the alert
-        this.showAlert = false;
-
-        // Sign in
-        if (this.loginForm.value.email && this.loginForm.value.password) {
-            // console.log(this.loginForm.value)
-            this.authBody.email = this.loginForm.value.email;
-            this.authBody.password = this.loginForm.value.password;
-            this.authBody.typeUser = TYPE_USER.ADMIN ;
-            console.log(this.authBody) ;
-            this.authService.login({username: this.authBody.email, password: this.authBody.password, typeUser: TYPE_USER.ADMIN}).subscribe(
+            this.authService.login(this.authBody).subscribe(
                 (ret:any) => {
                     console.log(ret) ;
                 if (ret) {
@@ -198,10 +131,21 @@ export class AuthSignInComponent implements OnInit
 
                     // Navigate to the redirect url
                     // this._router.navigateByUrl(redirectURL);
-                    localStorage.setItem('app-token', btoa(JSON.stringify(ret['data'].token)));
+                    localStorage.setItem('app-token', ret.data.token );
+                    localStorage.setItem('app-refresh-token', ret.data.refreshToken );
                     localStorage.setItem('isLoggedin', 'true');
-                    localStorage.setItem('userLogged', JSON.stringify(ret.data.user));
-                    this.dataSubjectService.dispatchData('userLogged',ret.data.user) ;
+                    let user:UserModel = new UserModel() ;
+                    user.email = this.authBody.email ;
+                    user.password = this.authBody.password ;
+                    user.firstName = "Chiefeat" ;
+                    user.lastName = "Admin" ;
+                    user.fullName = "Chiefeat Admin" ;
+                    user.address= "France" ;
+                    user.avatar= "unknow.jpg" ;
+                    user.active= true ;
+                    user.admin= true ;
+                    localStorage.setItem('userLogged', JSON.stringify(user));
+                    // this.dataSubjectService.dispatchData('userLogged',ret.data.user) ;
                     // this.dataSubjectService.dispatchData('authToken',ret.data.user) ;
                     // console.log('*********************************************')
                     this._router.navigateByUrl('/dashboard');
@@ -235,7 +179,7 @@ export class AuthSignInComponent implements OnInit
                 } );
 
         } else {
-// Re-enable the form
+            // Re-enable the form
             // this.signInForm.enable();
 
             // Reset the form

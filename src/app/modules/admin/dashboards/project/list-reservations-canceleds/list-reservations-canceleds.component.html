@@ -1,0 +1,135 @@
+
+<div class="w-full mt-8">
+    <div class="xl:col-span-2 flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden">
+        <div class="flex">
+            <div class="flex-auto p-6">
+                <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Liste des Reservations terminées
+                </div>
+                <div class="text-secondary font-medium">14 reservations terminées</div>
+            </div>
+            <!-- Main actions -->
+            <div class="flex-auto items-center mt-4 sm:mt-0 md:mt-4">
+                <!-- Search -->
+                <div class="flex">
+                    <mat-form-field
+                        class="fuse-mat-dense fuse-mat-no-subscript fuse-mat-rounded w-full min-w-50">
+                        <mat-icon
+                            class="icon-size-5"
+                            matPrefix
+                            [svgIcon]="'heroicons_solid:search'"></mat-icon>
+                        <input
+                            matInput
+                            [(ngModel)]="searchKey"
+                            [autocomplete]="'off'"
+                            [placeholder]="'Search...'">
+                    </mat-form-field>
+
+                    <!-- Add contact button (click)="findEventTicketsByPage(page, size)" -->
+                    <button
+                        class="ml-4 mr-5"
+                        mat-flat-button
+                        [color]="'primary'">
+                        <mat-icon [svgIcon]="'heroicons_outline:search'"></mat-icon>
+                        <span class="ml-2 mr-1">Rechercher</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="overflow-x-auto mx-6">
+            <table
+                class="w-full bg-transparent"
+                mat-table
+                matSort
+                [dataSource]="listResasFuturs"
+                [trackBy]="trackByFn"
+                #TicketPriceTable >
+
+                <!-- Type -->
+                <ng-container matColumnDef="Num de Réservation">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef>Num de Réservation</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="pr-6 whitespace-nowrap">{{item.numResas}}</span>
+                    </td>
+                </ng-container>
+                <!-- Type -->
+                <ng-container matColumnDef="Date de réservation">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef>Date de réservation</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="pr-6 whitespace-nowrap">{{item.dateResas}}</span>
+                    </td>
+                </ng-container>
+                <!-- Type -->
+                <ng-container matColumnDef="Date de préstation">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef>Date de préstation</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="pr-6 whitespace-nowrap">{{item.datePrestat}}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Type -->
+                <ng-container matColumnDef="Heure de préstation">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef>Heure de préstation</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="pr-6 whitespace-nowrap">{{item.hourPrestat}}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Type -->
+                <ng-container matColumnDef="Date d'annulation">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef>Date d'annulation</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="pr-6 whitespace-nowrap">{{item.dateCancel}}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Type -->
+                <ng-container matColumnDef="Heure d'annulation">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef>Heure d'annulation</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="pr-6 whitespace-nowrap">{{item.hourCancel}}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Type -->
+                <ng-container matColumnDef="Eater">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef>Eater</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="pr-6 whitespace-nowrap">{{item.eater}}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Type -->
+                <ng-container matColumnDef="Chief">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef>Chief</th>
+                    <td mat-cell *matCellDef="let item">
+                        <span class="pr-6 whitespace-nowrap">{{item.chief}}</span>
+                    </td>
+                </ng-container>
+
+                <!-- Type -->
+                <ng-container matColumnDef="Details">
+                    <th mat-header-cell mat-sort-header *matHeaderCellDef>Details</th>
+                    <td mat-cell *matCellDef="let item">
+                        <button mat-stroked-button><span class="inline-flex items-center">Details</span>
+                            <mat-icon
+                                class="ml-1.5 icon-size-5"
+                                [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr
+                    mat-header-row
+                    *matHeaderRowDef="columnsResasFuturs"></tr>
+                <tr
+                    class="order-row h-16"
+                    mat-row
+                    *matRowDef="let row; columns: columnsResasFuturs;"></tr>
+            </table>
+            <mat-paginator (page)="getPaging($event)" #paginator [length]="totalTickets"
+                           [pageIndex]="currentPage" [pageSize]="size"
+                           [pageSizeOptions]="[1,2,3,5, 10, 25, 100]">
+            </mat-paginator>
+        </div>
+    </div>
+</div>

@@ -5,6 +5,8 @@ import { ApexOptions } from 'ng-apexcharts';
 import { ProjectService } from 'app/modules/admin/dashboards/project/project.service';
 import {UserModel} from "../../../../models/auth/user.model";
 import {AuthService} from "../../../../services/auth.service";
+import {RestAPIService} from "../../../../services/rest-api.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
     selector       : 'project',
@@ -29,18 +31,10 @@ export class ProjectComponent implements OnInit, OnDestroy
     userLogged: UserModel = this.authService.getUserLogged() ;
 
     page: number = 0 ;
-    size: number = 5 ;
+    size: number = 1000 ;
     currentPage: number = 0 ;
     totalTickets: number = 0 ;
     totalPages: number = 1 ;
-    ticketTablesColumns: string[] = ['Nom','Email','Teléphone',"Date d'Adhésion", 'Status', 'Options'];
-    listToShow: any[] = [
-        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
-        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
-        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
-        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
-        {name: 'John Doe', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', status:'Actif', options: 'Details'},
-    ] ;
 
     tablesColumns2: string[] = ['Date de debut','Date de fin','Eater',"Chief", "Details"];
     listToShow2: any[] = [
@@ -51,13 +45,17 @@ export class ProjectComponent implements OnInit, OnDestroy
        ] ;
     searchKey: string = '' ;
 
+    bookingComing: any[] = [] ;
+    bookingExpired: any[] = [] ;
+    bookingCancel: any[] = [] ;
     /**
      * Constructor
      */
     constructor(
         private authService:AuthService,
         private _projectService: ProjectService,
-        private _router: Router
+        private _router: Router,
+        public restAPIService:RestAPIService,
     )
     {
     }
@@ -71,6 +69,7 @@ export class ProjectComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        this.getBookings() ;
         // Get the data
         this._projectService.data$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -96,6 +95,19 @@ export class ProjectComponent implements OnInit, OnDestroy
                 }
             }
         };
+    }
+
+    getBookings(){
+        this.restAPIService.findAll("bookings/all?page="+this.page+"&size="+this.size).subscribe(
+            (data: any) => {
+                console.log(data) ;
+                this.bookingComing = data.data.filter((booking:any) => booking.status === 'coming') ;
+                this.bookingExpired = data.data.filter((booking:any) => booking.status === 'expired') ;
+                this.bookingCancel = data.data.filter((booking:any) => booking.status === 'cancel') ;
+            } ,
+            (error: any) => {
+                console.log(error);
+            } ) ;
     }
 
     /**

@@ -23,7 +23,7 @@
                     <mat-icon
                         class="text-current"
                         [svgIcon]="'heroicons_outline:archive'"></mat-icon>
-                    <div class="ml-3 leading-5 select-none text-default">Liste des Menus</div>
+                    <div class="ml-3 leading-5 select-none text-default">Catégories</div>
                 </div>
                 <!-- Filters -->
                 <div class="space-y-2">
@@ -160,6 +160,12 @@
                                                                 {{resizeTextLength(event.title, 50)}}
                                                             </div>
                                                         </ng-container>
+                                                        <!-- Title -->
+                                                        <ng-container> <br> Chief :
+                                                            <div class="font-semibold line-clamp-3">
+                                                                {{resizeTextLength('John DOE', 50)}}
+                                                            </div>
+                                                        </ng-container>
                                                         <!-- Date -->
                                                         <ng-container><br> Prix :
                                                             <div class="font-semibold line-clamp-3">
@@ -167,10 +173,16 @@
                                                             </div>
                                                         </ng-container>
                                                         <!-- Content -->
-                                                        <ng-container><br> Description :
+                                                        <ng-container>
+                                                            <!--<br> Description :
                                                             <div class="font-semibold line-clamp-3">
                                                                 {{resizeTextLength(event.description, 50)}}
-                                                            </div>
+                                                            </div>-->
+                                                            <button mat-stroked-button><span class="inline-flex items-center">Details</span>
+                                                                <mat-icon
+                                                                    class="ml-1.5 icon-size-5"
+                                                                    [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
+                                                            </button>
                                                         </ng-container>
 
                                                     </div>

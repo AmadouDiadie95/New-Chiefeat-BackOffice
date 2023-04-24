@@ -21,10 +21,28 @@ import {CommonModule} from "@angular/common";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatInputModule} from "@angular/material/input";
+import { ListNewChiefsComponent } from './list-new-chiefs/list-new-chiefs.component';
+import { ListActifsChiefsComponent } from './list-actifs-chiefs/list-actifs-chiefs.component';
+import { ListInactifsChiefsComponent } from './list-inactifs-chiefs/list-inactifs-chiefs.component';
+import { ListNewEatersComponent } from './list-new-eaters/list-new-eaters.component';
+import { ListActifsEatersComponent } from './list-actifs-eaters/list-actifs-eaters.component';
+import { ListInactifsEatersComponent } from './list-inactifs-eaters/list-inactifs-eaters.component';
+import { ListReservationsFutursComponent } from './list-reservations-futurs/list-reservations-futurs.component';
+import { ListReservationsFinishedComponent } from './list-reservations-finished/list-reservations-finished.component';
+import { ListReservationsCanceledsComponent } from './list-reservations-canceleds/list-reservations-canceleds.component';
 
 @NgModule({
     declarations: [
-        ProjectComponent
+        ProjectComponent,
+        ListNewChiefsComponent,
+        ListActifsChiefsComponent,
+        ListInactifsChiefsComponent,
+        ListNewEatersComponent,
+        ListActifsEatersComponent,
+        ListInactifsEatersComponent,
+        ListReservationsFutursComponent,
+        ListReservationsFinishedComponent,
+        ListReservationsCanceledsComponent
     ],
     imports     : [
         RouterModule.forChild(projectRoutes),
