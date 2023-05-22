@@ -15,12 +15,12 @@
                         <ng-container *transloco="let t">
                             <div class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">{{t('Bienvenue')}}, {{userLogged?.fullName || 'Chiefeat Admin'}} !</div>
                         </ng-container>
-                        <div class="flex items-center">
+                        <!--<div class="flex items-center">
                             <mat-icon
                                 class="icon-size-5"
                                 [svgIcon]="'heroicons_solid:bell'"></mat-icon>
                             <div class="ml-1.5 leading-6 truncate text-secondary">Vous avez 3 nouvelles demandes de Reservations !</div>
-                        </div>
+                        </div>-->
                     </div>
                 </div>
                 <!-- Actions -->
@@ -91,11 +91,11 @@
                                     <div class="text-lg font-medium tracking-tight leading-6 truncate">Vos Chiefs</div>
                                 </div>
                                 <div class="flex flex-col items-center mt-2">
-                                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500">21</div>
+                                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500">{{chiefsActifs.length + chiefsInactifs.length}}</div>
                                     <div class="text-lg font-medium text-blue-600 dark:text-blue-500">Chiefs</div>
                                     <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
                                         <div class="text-md font-medium truncate">Actifs :</div>
-                                        <div class="ml-1.5 text-lg font-semibold">13</div>
+                                        <div class="ml-1.5 text-lg font-semibold">{{chiefsActifs.length}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -105,11 +105,11 @@
                                     <div class="text-lg font-medium tracking-tight leading-6 truncate">Vos Eaters</div>
                                 </div>
                                 <div class="flex flex-col items-center mt-2">
-                                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500">17</div>
+                                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500">{{eatersActifs.length + eatersInactifs.length}}</div>
                                     <div class="text-lg font-medium text-amber-600 dark:text-amber-500">Eaters</div>
                                     <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
                                         <div class="text-md font-medium truncate">Actifs :</div>
-                                        <div class="ml-1.5 text-lg font-semibold">9</div>
+                                        <div class="ml-1.5 text-lg font-semibold">{{eatersActifs.length}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -196,11 +196,11 @@
                 <mat-tab label="Chiefs">
                     <ng-template matTabContent>
                         <!------------ New Chiefs -------------------->
-                        <app-list-new-chiefs></app-list-new-chiefs>
-                        <!---------------- Chiefs Actifs ------------------------>
-                        <app-list-actifs-chiefs></app-list-actifs-chiefs>
+<!--                        <app-list-new-chiefs></app-list-new-chiefs>-->
                         <!---------------- Chiefs Inctifs ------------------------>
-                        <app-list-inactifs-chiefs></app-list-inactifs-chiefs>
+                        <app-list-inactifs-chiefs [listInactifsChiefs]="chiefsInactifs"></app-list-inactifs-chiefs>
+                        <!---------------- Chiefs Actifs ------------------------>
+                        <app-list-actifs-chiefs [listActifsChiefs]="chiefsActifs"></app-list-actifs-chiefs>
 
                     </ng-template>
                 </mat-tab>
@@ -209,13 +209,13 @@
                 <mat-tab label="Eaters">
                     <ng-template matTabContent>
                         <!------------ New Eaters -------------------->
-                        <app-list-new-eaters></app-list-new-eaters>
+<!--                        <app-list-new-eaters></app-list-new-eaters>-->
 
                         <!------------ Actifs Eaters -------------------->
-                        <app-list-actifs-eaters></app-list-actifs-eaters>
+                        <app-list-actifs-eaters [listActifsEaters]="eatersActifs"></app-list-actifs-eaters>
 
                         <!------------ Inactifs Eaters -------------------->
-                        <app-list-inactifs-eaters></app-list-inactifs-eaters>
+                        <app-list-inactifs-eaters [listInactifsEaters]="eatersInactifs"></app-list-inactifs-eaters>
 
                     </ng-template>
                 </mat-tab>
@@ -226,7 +226,7 @@
                 <mat-tab label="Reservations">
                     <ng-template matTabContent>
                         <!-- Futurs Reservations -->
-                        <app-list-reservations-futurs [bookingComing]="bookingComing"></app-list-reservations-futurs>
+                        <app-list-reservations-futurs  [bookingComing]="bookingComing"></app-list-reservations-futurs>
                         <!-- Reservations Terminées -->
                         <app-list-reservations-finished [bookingExpired]="bookingExpired"></app-list-reservations-finished>
                         <!-- Reservations Annumées -->

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserModel} from "../../../../../models/auth/user.model";
 import {AuthService} from "../../../../../services/auth.service";
 import {ProjectService} from "../project.service";
 import {Router} from "@angular/router";
+import {User} from "../../../../../models/chiefeat/users";
 
 @Component({
   selector: 'app-list-inactifs-eaters',
@@ -18,15 +19,10 @@ export class ListInactifsEatersComponent implements OnInit {
     totalTickets: number = 0 ;
     totalPages: number = 1 ;
 
-    columnsInactifsChiefs: string[] = ['Nom', 'Prenom','Email','Teléphone',"Adhésion", "Suspension", "Motifs", 'Options'];
-    listInactifsChiefs: any[] = [
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', dateOfSuspend:'14/01/2023',suspendCause: 'Infogreffe' , options: 'Details'},
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', dateOfSuspend:'14/01/2023',suspendCause: 'Administratif' , options: 'Details'},
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', dateOfSuspend:'14/01/2023',suspendCause: 'Doublon' , options: 'Details'},
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', dateOfSuspend:'14/01/2023',suspendCause: 'Avertissements' , options: 'Details'},
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', dateOfSuspend:'14/01/2023',suspendCause: 'Moyenne' , options: 'Details'},
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', dateOfSuspend:'14/01/2023',suspendCause: 'Comportement' , options: 'Details'},
-    ] ;
+    columnsInactifsChiefs: string[] = ['Nom', 'Prenom','Email','Teléphone',"Adhésion", /*"Suspension", "Motifs",*/ 'Options'];
+    @Input()
+    listInactifsEaters: User[] = [] ;
+    listToShow: User[] = [] ;
 
     searchKey: string = '' ;
 
@@ -42,6 +38,7 @@ export class ListInactifsEatersComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.listToShow = this.listInactifsEaters ;
     }
 
     trackByFn(index: number, item: any): any
@@ -52,6 +49,16 @@ export class ListInactifsEatersComponent implements OnInit {
     getPaging(event) {
         console.log(event) ;
         // this.findEventTicketsByPage(event.pageIndex, event.pageSize);
+    }
+
+    searchClick() {
+        this.searchKey = this.searchKey.trim() ;
+        this.listToShow = this.listInactifsEaters
+            .filter(elt => elt.firstname?.toLowerCase().includes(this.searchKey.toLowerCase())
+                || elt.lastname?.toLowerCase().includes(this.searchKey.toLowerCase())
+                || elt.email?.toLowerCase().includes(this.searchKey.toLowerCase())
+                || elt.phoneNumber?.toLowerCase().includes(this.searchKey.toLowerCase())
+            )
     }
 
 }

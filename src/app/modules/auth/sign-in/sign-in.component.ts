@@ -81,6 +81,8 @@ export class AuthSignInComponent implements OnInit
         ////////////////
         localStorage.removeItem('app-token');
         localStorage.removeItem('isLoggedin');
+        localStorage.removeItem('userLogged');
+        localStorage.removeItem('app-refresh-token');
         // Create the form
         this.loginForm = new FormGroup({
             email: new FormControl('joshuaaivodji@gmail.com', [Validators.required]),

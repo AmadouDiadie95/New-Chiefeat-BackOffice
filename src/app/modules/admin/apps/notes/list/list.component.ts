@@ -207,27 +207,21 @@ export class NotesListComponent implements OnInit, OnDestroy
 
     getAllCategories() {
         // console.log("get all Categories") ;
-        /*this.restAPIService.findAll('api/categories').subscribe((response:IResponse)=>{
-            // console.log(response) ;
+        this.restAPIService.findAll('menus/search/').subscribe((response:IResponse)=>{
+            console.log(response) ;
             if (response.ok) {
-                this.allCategories = response.data ;
-                this.changeCat(this.allCategories[0]) ;
-                // this.exportData(this.allCategories) ;
-                // this.store.dispatch({type: GlobalStateActionsTypesEnum.SET_ALL_CATEGORIES, payload:response.data}) ;
+                // this.allCategories = response.data ;
+                // this.changeCat(this.allCategories[0]) ;
             }
-            // this.loadDataFromStore() ;
         },error => {
             console.log(error) ;
-            // this.loadDataFromStore() ;
-        }) ;*/
+        }) ;
 
         this.httpClient.get('assets/chiefeat/allCategories.json').subscribe((response:any)=>{
             // console.log(response) ;
             if (response) {
                 this.allCategories = response ;
                 this.changeCat(this.allCategories[0]) ;
-                // this.exportData(this.allCategories) ;
-                // this.store.dispatch({type: GlobalStateActionsTypesEnum.SET_ALL_CATEGORIES, payload:response.data}) ;
             }
             // this.loadDataFromStore() ;
         },error => {

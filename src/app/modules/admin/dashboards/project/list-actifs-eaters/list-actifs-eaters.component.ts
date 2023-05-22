@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserModel} from "../../../../../models/auth/user.model";
 import {AuthService} from "../../../../../services/auth.service";
 import {ProjectService} from "../project.service";
 import {Router} from "@angular/router";
+import {User} from "../../../../../models/chiefeat/users";
 
 @Component({
   selector: 'app-list-actifs-eaters',
@@ -18,13 +19,10 @@ export class ListActifsEatersComponent implements OnInit {
     totalTickets: number = 0 ;
     totalPages: number = 1 ;
 
-    columnsActifsEaters: string[] = ['Nom', 'Prenom','Email','Teléphone','Avertissements', "Adhésion", 'Resas en cours', 'Resas terminées', 'Annulations','Moyenne', 'Options'];
-    listActifsEaters: any[] = [
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00',  warning:3,  date:'31/12/2022',resasRunning:5, resasfinised:7, cancels:5, moyenne:76,options: 'Details'},
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00',  warning:3,  date:'31/12/2022',resasRunning:5, resasfinised:7, cancels:5, moyenne:0,options: 'Details'},
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00',  warning:3,  date:'31/12/2022',resasRunning:5, resasfinised:7, cancels:5, moyenne:64,options: 'Details'},
-    ] ;
-
+    columnsActifsEaters: string[] = ['Nom', 'Prenom','Email','Teléphone',/*'Avertissements',*/ "Adhésion",/* 'Resas en cours', 'Resas terminées', 'Annulations',*/'Moyenne', 'Options'];
+    @Input()
+    listActifsEaters: User[] = [] ;
+    listToShow: User[] = [] ;
     searchKey: string = '' ;
 
     /**
@@ -34,11 +32,10 @@ export class ListActifsEatersComponent implements OnInit {
         private authService:AuthService,
         private _projectService: ProjectService,
         private _router: Router
-    )
-    {
-    }
+    ) {}
 
     ngOnInit(): void {
+        this.listToShow = this.listActifsEaters ;
     }
 
     trackByFn(index: number, item: any): any
@@ -49,6 +46,16 @@ export class ListActifsEatersComponent implements OnInit {
     getPaging(event) {
         console.log(event) ;
         // this.findEventTicketsByPage(event.pageIndex, event.pageSize);
+    }
+
+    searchClick() {
+        this.searchKey = this.searchKey.trim() ;
+        this.listToShow = this.listActifsEaters
+            .filter(elt => elt.firstname?.toLowerCase().includes(this.searchKey.toLowerCase())
+                || elt.lastname?.toLowerCase().includes(this.searchKey.toLowerCase())
+                || elt.email?.toLowerCase().includes(this.searchKey.toLowerCase())
+                || elt.phoneNumber?.toLowerCase().includes(this.searchKey.toLowerCase())
+            )
     }
 
 }

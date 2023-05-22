@@ -4,7 +4,7 @@
             <div class="flex-auto p-6">
                 <div class="mr-4 text-lg font-medium tracking-tight leading-6 truncate">Liste des Chiefs Inactifs
                 </div>
-                <div class="text-secondary font-medium">8 Chiefs inactifs</div>
+                <div class="text-secondary font-medium">{{listInactifsChiefs.length}} Chiefs inactifs</div>
             </div>
             <!-- Main actions -->
             <div class="flex-auto items-center mt-4 sm:mt-0 md:mt-4">
@@ -24,7 +24,7 @@
                     </mat-form-field>
 
                     <!-- Add contact button (click)="findEventTicketsByPage(page, size)" -->
-                    <button
+                    <button (click)="searchClick()"
                         class="ml-4 mr-5"
                         mat-flat-button
                         [color]="'primary'">
@@ -39,7 +39,7 @@
                 class="w-full bg-transparent"
                 mat-table
                 matSort
-                [dataSource]="listInactifsChiefs"
+                [dataSource]="listToShow"
                 [trackBy]="trackByFn"
                 #listInactifsChiefsTable >
 
@@ -47,7 +47,7 @@
                 <ng-container matColumnDef="Nom">
                     <th mat-header-cell mat-sort-header *matHeaderCellDef>Nom</th>
                     <td mat-cell *matCellDef="let item">
-                        <span class="pr-6 whitespace-nowrap">{{item.lastName.toUpperCase()}}</span>
+                        <span class="pr-6 whitespace-nowrap">{{item?.lastname.toUpperCase()}}</span>
                     </td>
                 </ng-container>
 
@@ -55,7 +55,7 @@
                 <ng-container matColumnDef="Prenom">
                     <th mat-header-cell mat-sort-header *matHeaderCellDef>Prenom</th>
                     <td mat-cell *matCellDef="let item">
-                        <span class="pr-6 whitespace-nowrap">{{item.firstName}}</span>
+                        <span class="pr-6 whitespace-nowrap">{{item?.firstname}}</span>
                     </td>
                 </ng-container>
 
@@ -63,7 +63,7 @@
                 <ng-container matColumnDef="Email">
                     <th mat-header-cell mat-sort-header *matHeaderCellDef>Email</th>
                     <td mat-cell *matCellDef="let item">
-                        <span class="pr-6 whitespace-nowrap">{{item.email}}</span>
+                        <span class="pr-6 whitespace-nowrap">{{item?.email}}</span>
                     </td>
                 </ng-container>
 
@@ -71,7 +71,7 @@
                 <ng-container matColumnDef="Teléphone">
                     <th mat-header-cell mat-sort-header *matHeaderCellDef>Teléphone</th>
                     <td mat-cell *matCellDef="let item">
-                        <span class="pr-6 whitespace-nowrap">{{item.phone}}</span>
+                        <span class="pr-6 whitespace-nowrap">{{item.phoneNumber}}</span>
                     </td>
                 </ng-container>
 
@@ -79,34 +79,30 @@
                 <ng-container matColumnDef="Adhésion">
                     <th mat-header-cell mat-sort-header *matHeaderCellDef>Adhesion</th>
                     <td mat-cell *matCellDef="let item">
-                        <span class="pr-6 whitespace-nowrap">{{item.date}}</span>
+                        <span class="pr-6 whitespace-nowrap">{{item?.createdAt | date: 'short'}}</span>
                     </td>
                 </ng-container>
 
                 <!-- Type -->
-                <ng-container matColumnDef="Suspension">
+                <!--<ng-container matColumnDef="Suspension">
                     <th mat-header-cell mat-sort-header *matHeaderCellDef>Suspension</th>
                     <td mat-cell *matCellDef="let item">
                         <span class="pr-6 whitespace-nowrap">{{item.dateOfSuspend}}</span>
                     </td>
                 </ng-container>
-                <!-- Type -->
-                <ng-container matColumnDef="Motifs">
+                <ng-container
+                 matColumnDef="Motifs">
                     <th mat-header-cell mat-sort-header *matHeaderCellDef>Motifs</th>
                     <td mat-cell *matCellDef="let item">
                         <span class="pr-6 whitespace-nowrap">{{item.suspendCause}}</span>
                     </td>
-                </ng-container>
+                </ng-container> -->
 
                 <!-- Type -->
                 <ng-container matColumnDef="Options">
                     <th mat-header-cell mat-sort-header *matHeaderCellDef>Options</th>
                     <td mat-cell *matCellDef="let item">
-                        <button mat-stroked-button><span class="inline-flex items-center">Details</span>
-                            <mat-icon
-                                class="ml-1.5 icon-size-5"
-                                [svgIcon]="'heroicons_solid:arrow-sm-right'"></mat-icon>
-                        </button>
+                        <button class="mr-3" mat-stroked-button><span class="inline-flex items-center">Valider</span></button>
                     </td>
                 </ng-container>
 
@@ -118,10 +114,10 @@
                     mat-row
                     *matRowDef="let row; columns: columnsInactifsChiefs;"></tr>
             </table>
-            <mat-paginator (page)="getPaging($event)" #paginator [length]="totalTickets"
+            <!--<mat-paginator (page)="getPaging($event)" #paginator [length]="totalTickets"
                            [pageIndex]="currentPage" [pageSize]="size"
                            [pageSizeOptions]="[1,2,3,5, 10, 25, 100]">
-            </mat-paginator>
+            </mat-paginator>-->
         </div>
     </div>
 </div>

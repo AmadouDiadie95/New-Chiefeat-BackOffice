@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {UserModel} from "../../../../../models/auth/user.model";
 import {AuthService} from "../../../../../services/auth.service";
 import {ProjectService} from "../project.service";
 import {Router} from "@angular/router";
+import {User} from "../../../../../models/chiefeat/users";
 
 @Component({
   selector: 'app-list-actifs-chiefs',
@@ -18,12 +19,10 @@ export class ListActifsChiefsComponent implements OnInit {
     totalTickets: number = 0 ;
     totalPages: number = 1 ;
 
-    columnsActifsChiefs: string[] = ['Nom', 'Prenom','Email','Teléphone',"Adhésion", 'N°SIREN', 'Avertissements', 'Annulations','Taux de reussite','Moyenne', 'Statut', 'Options'];
-    listActifsChiefs: any[] = [
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', siren:'0146548545854555', warning:3, cancels:5, successPourcent:45, moyenne:76, statut:'verified', options: 'Details'},
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', siren:'0146548545854555', warning:3, cancels:5, successPourcent:45, moyenne:76, statut:'running', options: 'Details'},
-        {lastName: 'Doe',firstName: 'John', email: 'john@gmail.com', phone: '+33 487 14 11 00', date:'31/12/2022', siren:'0146548545854555', warning:3, cancels:5, successPourcent:45, moyenne:76, statut:'refused', options: 'Details'},
-    ] ;
+    columnsActifsChiefs: string[] = ['Nom', 'Prenom','Email','Teléphone',/*'Avertissements',*/ "Adhésion",/* 'Resas en cours', 'Resas terminées', 'Annulations',*/'Moyenne', 'Options'];
+    @Input()
+    listActifsChiefs: User[] = [] ;
+    listToShow: User[] = [] ;
 
     searchKey: string = '' ;
 
@@ -39,6 +38,7 @@ export class ListActifsChiefsComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.listToShow = this.listActifsChiefs ;
     }
 
     trackByFn(index: number, item: any): any
@@ -49,6 +49,16 @@ export class ListActifsChiefsComponent implements OnInit {
     getPaging(event) {
         console.log(event) ;
         // this.findEventTicketsByPage(event.pageIndex, event.pageSize);
+    }
+
+    searchClick() {
+        this.searchKey = this.searchKey.trim() ;
+        this.listToShow = this.listActifsChiefs
+            .filter(elt => elt.firstname?.toLowerCase().includes(this.searchKey.toLowerCase())
+                || elt.lastname?.toLowerCase().includes(this.searchKey.toLowerCase())
+                || elt.email?.toLowerCase().includes(this.searchKey.toLowerCase())
+                || elt.phoneNumber?.toLowerCase().includes(this.searchKey.toLowerCase())
+            )
     }
 
 }

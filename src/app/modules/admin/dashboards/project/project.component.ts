@@ -7,6 +7,8 @@ import {UserModel} from "../../../../models/auth/user.model";
 import {AuthService} from "../../../../services/auth.service";
 import {RestAPIService} from "../../../../services/rest-api.service";
 import {HttpClient} from "@angular/common/http";
+import {Booking} from "../../../../models/chiefeat/booking";
+import {User} from "../../../../models/chiefeat/users";
 
 @Component({
     selector       : 'project',
@@ -45,9 +47,14 @@ export class ProjectComponent implements OnInit, OnDestroy
        ] ;
     searchKey: string = '' ;
 
-    bookingComing: any[] = [] ;
-    bookingExpired: any[] = [] ;
-    bookingCancel: any[] = [] ;
+    bookingComing: Booking[] = [] ;
+    bookingExpired: Booking[] = [] ;
+    bookingCancel: Booking[] = [] ;
+
+    chiefsActifs: User[] = [] ;
+    chiefsInactifs: User[] = [] ;
+    eatersActifs: User[] = [] ;
+    eatersInactifs: User[] = [] ;
     /**
      * Constructor
      */
@@ -70,6 +77,8 @@ export class ProjectComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         this.getBookings() ;
+        this.getChiefs() ;
+        this.getEaters() ;
         // Get the data
         this._projectService.data$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -101,9 +110,39 @@ export class ProjectComponent implements OnInit, OnDestroy
         this.restAPIService.findAll("bookings/all?page="+this.page+"&size="+this.size).subscribe(
             (data: any) => {
                 console.log(data) ;
-                this.bookingComing = data.data.filter((booking:any) => booking.status === 'coming') ;
-                this.bookingExpired = data.data.filter((booking:any) => booking.status === 'expired') ;
-                this.bookingCancel = data.data.filter((booking:any) => booking.status === 'cancel') ;
+                let bookings : Booking[] = data.data.sort((a:any, b:any) => b.id - a.id) ;
+                bookings = bookings.slice(0,50)
+                this.bookingComing = bookings.filter((booking:any) => booking.status === 'coming') ;
+                this.bookingExpired = bookings.filter((booking:any) => booking.status === 'expired') ;
+                this.bookingCancel = bookings.filter((booking:any) => booking.status === 'cancel') ;
+            } ,
+            (error: any) => {
+                console.log(error);
+            } ) ;
+    }
+
+    getChiefs(){
+        this.restAPIService.findAll("users/all-chief?page="+this.page+"&size="+this.size).subscribe(
+            (data: any) => {
+                console.log(data) ;
+                let temp = data.data.user.sort((a:any, b:any) => b.id - a.id) ;
+                temp = temp.slice(0,50) ;
+                this.chiefsActifs = temp.filter((chief:any) => chief.enable) ;
+                this.chiefsInactifs = temp.filter((chief:any) => !chief.enable) ;
+            } ,
+            (error: any) => {
+                console.log(error);
+            } ) ;
+    }
+
+    getEaters(){
+        this.restAPIService.findAll("users/all-eater?page="+this.page+"&size="+this.size).subscribe(
+            (data: any) => {
+                console.log(data) ;
+                let temp = data.data.user.sort((a:any, b:any) => b.id - a.id) ;
+                temp = temp.slice(0,50) ;
+                this.eatersActifs = temp.filter((eater:any) => eater.enable) ;
+                this.eatersInactifs = temp.filter((eater:any) => !eater.enable) ;
             } ,
             (error: any) => {
                 console.log(error);
