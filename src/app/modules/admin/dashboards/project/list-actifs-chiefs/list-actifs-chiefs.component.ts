@@ -4,6 +4,7 @@ import {AuthService} from "../../../../../services/auth.service";
 import {ProjectService} from "../project.service";
 import {Router} from "@angular/router";
 import {User} from "../../../../../models/chiefeat/users";
+import {RestAPIService} from "../../../../../services/rest-api.service";
 
 @Component({
   selector: 'app-list-actifs-chiefs',
@@ -32,7 +33,8 @@ export class ListActifsChiefsComponent implements OnInit {
     constructor(
         private authService:AuthService,
         private _projectService: ProjectService,
-        private _router: Router
+        private _router: Router,
+        public restAPIService:RestAPIService,
     )
     {
     }
@@ -61,4 +63,16 @@ export class ListActifsChiefsComponent implements OnInit {
             )
     }
 
+    disableClicked(item:User) {
+        console.log(item) ;
+        item.enable = false ;
+        this.restAPIService.put("users", item.id, item).subscribe(
+            (data: any) => {
+                this.listToShow = this.listToShow.filter(elt => elt.id !== item.id) ;
+                this.listActifsChiefs = this.listActifsChiefs.filter(elt => elt.id !== item.id) ;
+            } ,
+            (error: any) => {
+                console.log(error);
+            } ) ;
+    }
 }

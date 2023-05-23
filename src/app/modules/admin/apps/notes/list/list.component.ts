@@ -207,7 +207,7 @@ export class NotesListComponent implements OnInit, OnDestroy
 
     getAllCategories() {
         // console.log("get all Categories") ;
-        this.restAPIService.findAll('menus/search/').subscribe((response:IResponse)=>{
+        /*this.restAPIService.findAll('menus/search/').subscribe((response:IResponse)=>{
             console.log(response) ;
             if (response.ok) {
                 // this.allCategories = response.data ;
@@ -215,7 +215,7 @@ export class NotesListComponent implements OnInit, OnDestroy
             }
         },error => {
             console.log(error) ;
-        }) ;
+        }) ;*/
 
         this.httpClient.get('assets/chiefeat/allCategories.json').subscribe((response:any)=>{
             // console.log(response) ;

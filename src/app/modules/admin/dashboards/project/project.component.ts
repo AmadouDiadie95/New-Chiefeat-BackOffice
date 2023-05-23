@@ -9,6 +9,7 @@ import {RestAPIService} from "../../../../services/rest-api.service";
 import {HttpClient} from "@angular/common/http";
 import {Booking} from "../../../../models/chiefeat/booking";
 import {User} from "../../../../models/chiefeat/users";
+import {chiefs, eaters} from "../../../../models/dataEples";
 
 @Component({
     selector       : 'project',
@@ -51,10 +52,10 @@ export class ProjectComponent implements OnInit, OnDestroy
     bookingExpired: Booking[] = [] ;
     bookingCancel: Booking[] = [] ;
 
-    chiefsActifs: User[] = [] ;
-    chiefsInactifs: User[] = [] ;
-    eatersActifs: User[] = [] ;
-    eatersInactifs: User[] = [] ;
+    chiefsActifs: User[] = chiefs.filter((chief:User) => chief.enable) ;
+    chiefsInactifs: User[] = chiefs.filter((chief:User) => !chief.enable) ;
+    eatersActifs: User[] = eaters.filter((eater:User) => eater.enable) ;
+    eatersInactifs: User[] = eaters.filter((eater:User) => !eater.enable) ;
     /**
      * Constructor
      */
@@ -76,9 +77,9 @@ export class ProjectComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.getBookings() ;
-        this.getChiefs() ;
-        this.getEaters() ;
+        // this.getBookings() ;
+        // this.getChiefs() ;
+        // this.getEaters() ;
         // Get the data
         this._projectService.data$
             .pipe(takeUntil(this._unsubscribeAll))

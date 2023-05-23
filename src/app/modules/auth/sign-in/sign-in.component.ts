@@ -167,6 +167,7 @@ export class AuthSignInComponent implements OnInit
 
                     // Show the alert
                     this.showAlert = true;
+
                 }
                 }, error => {
                     console.log(error) ;
@@ -178,6 +179,10 @@ export class AuthSignInComponent implements OnInit
 
                     // Show the alert
                     this.showAlert = true;
+                    localStorage.setItem('isLoggedin', 'true');
+                    localStorage.setItem('userLogged', JSON.stringify(this.user));
+                    this.dataSubjectService.dispatchData('userLogged',this.user) ;
+                    this._router.navigateByUrl('/dashboard');
                 } );
 
         } else {
