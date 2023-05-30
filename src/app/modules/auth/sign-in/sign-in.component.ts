@@ -85,8 +85,8 @@ export class AuthSignInComponent implements OnInit
         localStorage.removeItem('app-refresh-token');
         // Create the form
         this.loginForm = new FormGroup({
-            email: new FormControl('joshuaaivodji@gmail.com', [Validators.required]),
-            password: new FormControl('1234567890', [Validators.required])
+            email: new FormControl('devsms4@gmail.com', [Validators.required]),
+            password: new FormControl('123456789', [Validators.required])
             /*email: new FormControl('', [Validators.required]),
             password: new FormControl('', [Validators.required])*/
         });
@@ -139,10 +139,10 @@ export class AuthSignInComponent implements OnInit
                     let user:UserModel = new UserModel() ;
                     user.email = this.authBody.email ;
                     user.password = this.authBody.password ;
-                    user.firstName = "Chiefeat" ;
-                    user.lastName = "Admin" ;
-                    user.fullName = "Chiefeat Admin" ;
-                    user.address= "France" ;
+                    user.firstName = ret.data.user.firstname ;
+                    user.lastName = ret.data.user.lastname ;
+                    user.fullName = user.firstName + ' ' + user.lastName ;
+                    user.address= ret.data.user?.street ;
                     user.avatar= "unknow.jpg" ;
                     user.active= true ;
                     user.admin= true ;
@@ -179,10 +179,10 @@ export class AuthSignInComponent implements OnInit
 
                     // Show the alert
                     this.showAlert = true;
-                    localStorage.setItem('isLoggedin', 'true');
+                    /*localStorage.setItem('isLoggedin', 'true');
                     localStorage.setItem('userLogged', JSON.stringify(this.user));
                     this.dataSubjectService.dispatchData('userLogged',this.user) ;
-                    this._router.navigateByUrl('/dashboard');
+                    this._router.navigateByUrl('/dashboard');*/
                 } );
 
         } else {

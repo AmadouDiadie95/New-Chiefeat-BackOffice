@@ -37,11 +37,13 @@ export class RestAPIService {
     }
 
     put(entityName, id: number, resuestBody: any): Observable<any> {
-        console.log("Request put (update) : " + this.urlBackend + entityName + "/" + id);
+        console.log("Request put (update) : " + this.urlBackend + "/" + entityName + "/" + id);
         console.log("Object Send to update : ");
         console.log(resuestBody);
         return this.httpClient.put<Observable<any>>(this.urlBackend + "/" + entityName + "/" + id, resuestBody, this.httpOptions);
     }
+
+
 
     putWithoutId(entityName, resuestBody: any): Observable<any> {
         console.log("Request put (update) : " + this.urlBackend + entityName);

@@ -66,8 +66,9 @@ export class ListActifsChiefsComponent implements OnInit {
     disableClicked(item:User) {
         console.log(item) ;
         item.enable = false ;
-        this.restAPIService.put("users", item.id, item).subscribe(
+        this.restAPIService.put("profiles/desactivate-account", item.id, {enable: false}).subscribe(
             (data: any) => {
+                console.log(data);
                 this.listToShow = this.listToShow.filter(elt => elt.id !== item.id) ;
                 this.listActifsChiefs = this.listActifsChiefs.filter(elt => elt.id !== item.id) ;
             } ,

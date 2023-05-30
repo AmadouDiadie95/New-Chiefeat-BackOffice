@@ -63,7 +63,7 @@ export class ListActifsEatersComponent implements OnInit {
     disableClicked(item:User) {
         console.log(item) ;
         item.enable = false ;
-        this.restAPIService.put("users", item.id, item).subscribe(
+        this.restAPIService.put("profiles/desactivate-account", item.id, {enable: false}).subscribe(
             (data: any) => {
                 this.listToShow = this.listToShow.filter(elt => elt.id !== item.id) ;
                 this.listActifsEaters = this.listActifsEaters.filter(elt => elt.id !== item.id) ;

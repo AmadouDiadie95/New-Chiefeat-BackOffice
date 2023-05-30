@@ -68,8 +68,8 @@ export const appRoutes: Route[] = [
     {
         path       : '',
         // TO REACTIVATE WITH KENTIN'S BACKEND
-        // canActivate: [AuthGuard],
-        // canActivateChild: [AuthGuard],
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
         component  : LayoutComponent,
         resolve    : {
             initialData: InitialDataResolver,

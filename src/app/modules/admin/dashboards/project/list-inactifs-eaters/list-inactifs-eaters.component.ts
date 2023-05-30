@@ -66,7 +66,7 @@ export class ListInactifsEatersComponent implements OnInit {
     enableClicked(item:User) {
         console.log(item) ;
         item.enable = true ;
-        this.restAPIService.put("users", item.id, item).subscribe(
+        this.restAPIService.put("profiles/validate-account", item.id, {enable: true}).subscribe(
             (data: any) => {
                 this.listToShow = this.listToShow.filter(elt => elt.id !== item.id) ;
                 this.listInactifsEaters = this.listInactifsEaters.filter(elt => elt.id !== item.id) ;
