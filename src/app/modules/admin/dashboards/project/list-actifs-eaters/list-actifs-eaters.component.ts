@@ -5,6 +5,9 @@ import {ProjectService} from "../project.service";
 import {Router} from "@angular/router";
 import {User} from "../../../../../models/chiefeat/users";
 import {RestAPIService} from "../../../../../services/rest-api.service";
+import {UserDetailsComponent} from "../../details-user/details.component";
+import {cloneDeep} from "lodash-es";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-list-actifs-eaters',
@@ -34,6 +37,7 @@ export class ListActifsEatersComponent implements OnInit {
         private _projectService: ProjectService,
         private _router: Router,
         public restAPIService:RestAPIService,
+        private _matDialog: MatDialog,
     ) {}
 
     ngOnInit(): void {
@@ -71,6 +75,19 @@ export class ListActifsEatersComponent implements OnInit {
             (error: any) => {
                 console.log(error);
             } ) ;
+    }
+
+    userClicked(item:User) {
+        this._matDialog.open(UserDetailsComponent, {
+            autoFocus: false,
+            data     : cloneDeep(item)
+        }).afterClosed().subscribe((data:User) => {
+            console.log(data) ;
+            if (data && data.id) {
+                this.listToShow = this.listToShow.filter(elt => elt.id !== item.id) ;
+                this.listActifsEaters = this.listActifsEaters.filter(elt => elt.id !== item.id) ;
+            }
+        });
     }
 
 }

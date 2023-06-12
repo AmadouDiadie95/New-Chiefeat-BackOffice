@@ -103,14 +103,6 @@
                         </div>
                     </ng-container>
 
-                    <!-- Roles -->
-                    <div *ngIf="user.roles">
-                        <div class="flex sm:items-center">
-                            <mat-icon [svgIcon]="'heroicons_outline:clipboard-copy'"></mat-icon>
-                            <div class="ml-6 leading-6">{{user.roles.length === 2 ? user.roles[1].name : user.roles[0].name }}</div>
-                        </div>
-                    </div>
-
 
                     <!-- Address -->
                     <ng-container *ngIf="user.phone">
@@ -268,19 +260,6 @@
                                 matInput
                                 [formControlName]="'password'"
                                 [placeholder]="'Mot de Passe'">
-                        </mat-form-field>
-                    </div>
-
-                    <div class="mt-8">
-                        <mat-form-field class="fuse-mat-no-subscript w-full">
-                            <mat-label>Role</mat-label>
-                            <mat-icon
-                                matPrefix
-                                class="hidden sm:flex icon-size-5"
-                                [svgIcon]="'heroicons_solid:clipboard-copy'"></mat-icon>
-                            <mat-select [formControlName]="'role'">
-                                <mat-option *ngFor="let role of listRoles" [value]="role.name">{{role.name}}</mat-option>
-                            </mat-select>
                         </mat-form-field>
                     </div>
 

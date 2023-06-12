@@ -67,10 +67,11 @@ export class ContactsListComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.users$ = {dataState: DataStateEnum.LOADED, data: [this.userLogged]} ;
-        this.usersList = [this.userLogged] ;
-        /*this.users$ = this.restAPIService.findAll('users').pipe(
-            map((data:IResponse)=>{
+        // this.users$ = {dataState: DataStateEnum.LOADED, data: [this.userLogged]} ;
+        // this.usersList = [this.userLogged] ;
+        /*this.users$ = this.restAPIService.findAll('managements/admins').pipe(
+            map((data:any)=>{
+                console.log(data) ;
                 if (data.ok) {
                     // console.log(data) ;
                     // Update the counts
@@ -87,6 +88,33 @@ export class ContactsListComponent implements OnInit, OnDestroy
             startWith({dataState:DataStateEnum.LOADING}),
             catchError(err=>of({dataState:DataStateEnum.ERROR, errorMessage:err.message}))
         ) ;*/
+
+        this.restAPIService.findAll('managements/admins').subscribe((data:any) => {
+            if (data) {
+                if (data.data.some(elt => elt.id != this.userLogged.id)) data.data = [this.userLogged, ...data.data] ;
+                data.data.forEach((user:UserModel) => {
+                    if (!user.fullName) {
+                        user.firstName = user.email.split('@')[0] ;
+                        user.lastName = user.email.split('@')[1].split('.')[0].toUpperCase() ;
+                        user.fullName = user.firstName + ' ' + user.lastName ;
+                    }
+                }) ;
+                console.log(data.data) ;
+                this.usersList = data.data ;
+                this.initialUsersList = data.data ;
+                this.usersCount = data.data.length;
+                this.users$ = {dataState: DataStateEnum.LOADED, data: data.data} ;
+            } else {
+                console.log("data is null")
+                this.users$ = {dataState: DataStateEnum.ERROR, errorMessage: data?.message} ;
+            }
+        }, (error:any) => {
+            console.log(error) ;
+            this.users$ = {dataState: DataStateEnum.ERROR, errorMessage: error?.message} ;
+            this.usersList = [] ;
+        }, () => {
+            this._changeDetectorRef.markForCheck();
+        }) ;
 
 
 
@@ -160,6 +188,7 @@ export class ContactsListComponent implements OnInit, OnDestroy
     }
 
     selectUser(user:UserModel) {
+        if (!user.id) return ;
         // Create the contact
         this.dataSubjectService.dispatchData('user',user) ;
         // Go to the new user

@@ -64,7 +64,6 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
-        this.getRoles() ;
         // console.log(this._activatedRoute) ;
         // Open the drawer
         this._contactsListComponent.matDrawer.open();
@@ -80,7 +79,6 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
                     lastName: ['', [Validators.required]],
                     firstName: ['', [Validators.required]],
                     email: ['', [Validators.required]],
-                    role: ['', [Validators.required]],
                     phone: [''],
                     address: ['']
                 });
@@ -96,8 +94,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
                     lastName: [user.lastName, [Validators.required]],
                     firstName: [user.firstName, [Validators.required]],
                     email: [user.email, [Validators.required]],
-                    password: [user.password],
-                    role: [],
+                    password: [''],
                     phone: [user.phone],
                     address: [user.address]
                 });
@@ -143,7 +140,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
         this.user.avatar = 'unknow.jpg'  ;
         // console.log(this.user) ;
         if (!this.updateUser) {
-            this.restAPIService.save('users/create', this.user).subscribe( (data:IResponse) => {
+            this.restAPIService.save('managements/admins', this.user).subscribe( (data:IResponse) => {
                 if (data.ok) {
                     this.showAlert('success_on_save') ;
                     // Toggle the edit mode off
@@ -160,7 +157,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
                 this.showAlert('error_on_save') ;
             }) ;
         } else {
-            this.restAPIService.putWithoutId('users/update', this.user).subscribe( data => {
+            this.restAPIService.put('managements/admins', this.user.id, this.user).subscribe( data => {
                 if (data.ok) {
                     this.showAlert('success_on_save') ;
                     // Toggle the edit mode off
@@ -209,7 +206,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
 
 
                 // Delete the contact
-                this.restAPIService.deleteById('users', this.user.id)
+                this.restAPIService.deleteById('managements/admins', this.user.id)
                     .subscribe((data:IResponse) => {
 
                         // Return if the contact wasn't deleted...

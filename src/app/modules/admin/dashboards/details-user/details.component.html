@@ -1,0 +1,81 @@
+<div class="flex flex-col flex-auto md:w-160 md:min-w-160 -m-6">
+    <ng-container>
+        <!-- Image -->
+        <ng-container>
+            <div class="relative w-full">
+                <!--<div class="absolute right-0 bottom-0 p-4">
+                    <button
+                        mat-icon-button
+                        (click)="removeImage(_data)">
+                        <mat-icon
+                            class="text-white"
+                            [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+                    </button>
+                </div>-->
+                <img
+                    class="w-full object-cover"
+                    [src]="'assets/chiefeat/menus/' + _data.picture">
+            </div>
+        </ng-container>
+        <div class="m-4">
+            <!-- Title -->
+            <strong style="margin-left: 10px ; font-size: 20px">
+                {{_data.firstname}} {{_data.lastname}}
+            </strong>
+            <br><br>
+            <!-- Chief -->
+            <div style="margin-left: 10px ; font-size: 15px">
+                Telephone : <strong>{{_data.phoneNumber}}</strong>
+            </div> <br>
+            <div style="margin-left: 10px ; font-size: 15px">
+                Email : <strong>{{_data.email}}</strong>
+            </div> <br>
+            <!-- Chief -->
+            <div style="margin-left: 10px ; font-size: 15px">
+                Pseudo : <strong>{{_data.pseudo}}</strong>
+            </div> <br>
+            <!-- Chief -->
+            <div style="margin-left: 10px ; font-size: 15px">
+                Date de Naissance : <strong>{{_data.dateBirth | date: 'short'}}</strong>
+            </div> <br>
+
+            <div style="margin-left: 10px ; font-size: 15px">
+                Adresse : <strong>{{_data.addresses}}</strong>
+            </div> <br>
+
+            <div style="margin-left: 10px ; font-size: 15px">
+                Rue : <strong>{{_data.street}}</strong>
+            </div> <br>
+
+            <div style="margin-left: 10px ; font-size: 15px">
+                Code Postal : <strong>{{_data.postalCode}}</strong>
+            </div> <br>
+            <!-- Categories -->
+            <div style="margin-left: 10px ; font-size: 15px">
+                Numero de Siret : <strong>{{_data.siretCode}}</strong>
+            </div> <br>
+            <!-- Edit Actions -->
+            <ng-container *ngIf="_data.id">
+                <div class="flex items-center justify-between mt-4">
+                    <!-- Close -->
+                    <button (click)="_matDialogRef.close()"
+                        mat-flat-button
+                        matDialogClose>
+                        Fermer
+                    </button><!-- Close -->
+                    <button *ngIf="!_data.enable" (click)="enableClicked(_data)"
+                        class="mat-primary"
+                        mat-flat-button>
+                        Activer
+                    </button>
+                    <button *ngIf="_data.enable" (click)="disableClicked(_data)"
+                        class="mat-primary"
+                        mat-flat-button>
+                        Desactiver
+                    </button>
+                </div>
+            </ng-container>
+        </div>
+    </ng-container>
+
+</div>

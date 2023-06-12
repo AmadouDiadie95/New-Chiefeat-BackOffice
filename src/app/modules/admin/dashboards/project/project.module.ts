@@ -30,6 +30,8 @@ import { ListInactifsEatersComponent } from './list-inactifs-eaters/list-inactif
 import { ListReservationsFutursComponent } from './list-reservations-futurs/list-reservations-futurs.component';
 import { ListReservationsFinishedComponent } from './list-reservations-finished/list-reservations-finished.component';
 import { ListReservationsCanceledsComponent } from './list-reservations-canceleds/list-reservations-canceleds.component';
+import {UserDetailsComponent} from "../details-user/details.component";
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
     declarations: [
@@ -42,9 +44,10 @@ import { ListReservationsCanceledsComponent } from './list-reservations-canceled
         ListInactifsEatersComponent,
         ListReservationsFutursComponent,
         ListReservationsFinishedComponent,
-        ListReservationsCanceledsComponent
+        ListReservationsCanceledsComponent,
+        UserDetailsComponent
     ],
-    imports     : [
+    imports: [
         RouterModule.forChild(projectRoutes),
         MatButtonModule,
         MatButtonToggleModule,
@@ -66,7 +69,8 @@ import { ListReservationsCanceledsComponent } from './list-reservations-canceled
         MatButtonToggleModule,
         MatFormFieldModule,
         MatInputModule,
-        MatPaginatorModule
+        MatPaginatorModule,
+        MatDialogModule
     ]
 })
 export class ProjectModule

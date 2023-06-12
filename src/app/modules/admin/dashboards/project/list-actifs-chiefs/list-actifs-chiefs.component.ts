@@ -5,6 +5,10 @@ import {ProjectService} from "../project.service";
 import {Router} from "@angular/router";
 import {User} from "../../../../../models/chiefeat/users";
 import {RestAPIService} from "../../../../../services/rest-api.service";
+import {MenuDetailsComponent} from "../../../apps/notes/details-menu/details.component";
+import {cloneDeep} from "lodash-es";
+import {UserDetailsComponent} from "../../details-user/details.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-list-actifs-chiefs',
@@ -35,6 +39,7 @@ export class ListActifsChiefsComponent implements OnInit {
         private _projectService: ProjectService,
         private _router: Router,
         public restAPIService:RestAPIService,
+        private _matDialog: MatDialog,
     )
     {
     }
@@ -75,5 +80,18 @@ export class ListActifsChiefsComponent implements OnInit {
             (error: any) => {
                 console.log(error);
             } ) ;
+    }
+
+    userClicked(item:User) {
+        this._matDialog.open(UserDetailsComponent, {
+            autoFocus: false,
+            data     : cloneDeep(item)
+        }).afterClosed().subscribe((data:User) => {
+            console.log(data) ;
+            if (data && data.id) {
+                this.listToShow = this.listToShow.filter(elt => elt.id !== item.id) ;
+                this.listActifsChiefs = this.listActifsChiefs.filter(elt => elt.id !== item.id) ;
+            }
+        });
     }
 }
